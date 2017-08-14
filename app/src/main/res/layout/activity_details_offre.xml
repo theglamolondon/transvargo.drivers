@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.transvargo.transvargo.DetailsOffre" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/txt_dtls_expire"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="Expire le "
+            android:gravity="center"
+            android:padding="5dp"
+            android:textColor="@color/color_white"
+            android:textSize="@dimen/text_normal"
+            android:background="@drawable/button"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:padding="5dp"
+            android:orientation="horizontal"
+            android:baselineAligned="false"
+            android:background="@drawable/liste_apparence">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="10"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/img_details_offre_start"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:contentDescription="Start icone"
+                    android:src="@drawable/gmap_marker_active"/>
+
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/dotted"
+                    android:rotation="90"
+                    android:layout_weight="1"/>
+
+                <ImageView
+                    android:id="@+id/img_details_offre_end"
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="top"
+                    android:layout_height="40dp"
+                    android:contentDescription="End icone"
+                    android:src="@drawable/gmap_marker"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/txt_dtls_lieudepart"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="@dimen/text_normal"
+                android:textColor="@color/colorBlack"/>
+
+            <TextView
+                android:id="@+id/txt_dtls_datechargement"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="@dimen/text_normal"
+                android:textColor="@color/colorBlack"/>
+            <TextView
+                android:id="@+id/txt_dtls_chargement"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="@dimen/text_descri"
+                android:textColor="@color/black_overlay"
+                android:paddingStart="20dp"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"/>
+
+            <TextView
+                android:id="@+id/txt_dtls_lieuarrive"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="@dimen/text_normal"
+                android:textColor="@color/colorBlack"/>
+
+            <TextView
+                android:id="@+id/txt_dtls_datelivraison"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="@dimen/text_normal"
+                android:textColor="@color/colorBlack"/>
+            <TextView
+                android:id="@+id/txt_dtls_livraison"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textSize="@dimen/text_descri"
+                android:textColor="@color/black_overlay"
+                android:paddingStart="20dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/title_details_marchandise"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_h1"
+            android:layout_marginTop="10dp"
+            android:gravity="center"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:padding="10dp"
+            android:orientation="vertical"
+            android:baselineAligned="false"
+            android:background="@drawable/liste_apparence">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_normal"
+                    android:text="@string/title_details_masse"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/txt_dtls_masse"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold"
+                    android:text="3,4 tonnes"
+                    android:textAlignment="viewEnd"
+                    android:textSize="@dimen/text_normal"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/black_overlay"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_normal"
+                    android:text="@string/title_details_fragile"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/txt_dtls_fragile"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold"
+                    android:text="Oui"
+                    android:textAlignment="viewEnd"
+                    android:textSize="@dimen/text_normal"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/black_overlay"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_normal"
+                    android:text="@string/title_details_distance"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/txt_dtls_distance"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold"
+                    android:text="526 km"
+                    android:textAlignment="viewEnd"
+                    android:textSize="@dimen/text_normal"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/title_details_options"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_h1"
+            android:layout_marginTop="10dp"
+            android:gravity="center"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:padding="10dp"
+            android:orientation="vertical"
+            android:baselineAligned="false"
+            android:background="@drawable/liste_apparence">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_normal"
+                    android:text="@string/title_details_camion"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/txt_dtls_typecamion"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/text_normal"
+                    android:textAlignment="viewEnd"
+                    android:textStyle="bold"
+                    android:text="Camion plateaux"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/black_overlay"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_normal"
+                    android:text="@string/title_prix"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/txt_dtls_prix"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/color_red"
+                    android:textSize="@dimen/text_normal"
+                    android:textAlignment="viewEnd"
+                    android:textStyle="bold"
+                    android:text="45800 FCFA"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_dtls_reserver"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/button"
+            android:clickable="true"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="Réserver..."
+            android:textSize="@dimen/text_h1"
+            android:textStyle="bold"
+            android:textColor="@color/color_white" />
+
+    </LinearLayout>
+
+</ScrollView>

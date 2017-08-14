@@ -1,0 +1,26 @@
+package com.transvargo.transvargo.model;
+
+/**
+ * Created by BW.KOFFI on 09/08/2017.
+ */
+
+public class Transporteur {
+
+    public static double pourcentage = 0.75;
+    public Identite identite;
+
+    public String nom;
+    public String prenoms;
+    public String raisonsociale;
+    public String contact;
+    public String comptecontribuable;
+    public String ville;
+    public String nationalite;
+    public String datenaissance;
+    public String lieunaissance;
+    public String rib;
+    public String datecreation;
+
+    public String jwt;
+
+}

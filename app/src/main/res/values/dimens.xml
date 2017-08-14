@@ -1,0 +1,6 @@
+<resources>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="text_normal">17sp</dimen>
+    <dimen name="text_descri">14sp</dimen>
+    <dimen name="text_h1">20sp</dimen>
+</resources>
