@@ -1,5 +1,7 @@
 package com.transvargo.transvargo.http;
 
+import com.android.volley.VolleyError;
+
 import java.util.List;
 
 /**
@@ -10,5 +12,5 @@ public abstract class ResponseHandler {
     public <T extends Object> void doSomething(List<T> data){};
     public void doSomething(Object data){};
 
-    public void error(int httpCode) {}
+    public void error(int httpCode, VolleyError error) {}
 }

@@ -20,7 +20,10 @@ public class ApiTransvargo {
 
     private static String url = "https://www.transvargo.com/public/api/";
     public static String LOGIN_URL = ApiTransvargo.url + "login";
+    public static String LOGIN_REFRESH_TOKEN = ApiTransvargo.url + "refresh/token";
     public static String OFFRE_LISTE_URL = ApiTransvargo.url + "expeditions/offers/list";
+    public static String VEHICULE_LISTE_URL = ApiTransvargo.url + "expeditions/transporteur/%s/vehicule/%s/list"; //1er %s => id transporteur & 2ème %s => categorie du véhicule
+    public static String ACCEPT_OFFRE_URL = ApiTransvargo.url + "expeditions/offers/accept";
 
     private ApiTransvargo mInstance;
     private RequestQueue mRequestQueue;
@@ -50,11 +53,4 @@ public class ApiTransvargo {
 
         getRequestQueue().start();
     }
-
-    /*                             JsonObjectRequest request
-    public void executeHttpRequest(JsonArrayRequest request)
-    {
-        getRequestQueue().add(request);
-    }
-    */
 }

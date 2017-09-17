@@ -16,7 +16,9 @@ import com.transvargo.transvargo.R;
 import com.transvargo.transvargo.model.Offre;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by BW.KOFFI on 11/08/2017.
@@ -61,15 +63,15 @@ public class ListeProcessing extends ArrayAdapter<Offre> {
         }
 
         Offre offre = getItem(position);
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
 
-        viewHolder.txt_offre_distance.setText(offre.distance + " km");
-        viewHolder.txt_offre_prix.setText(offre.prix + " FCFA");
+        viewHolder.txt_offre_distance.setText(String.format("%s km", offre.distance ));
+        viewHolder.txt_offre_prix.setText(String.format("%s FCFA",offre.prix) );
         viewHolder.txt_offre_datechargement.setText(sdf.format(offre.datechargement));
         viewHolder.txt_offre_dateexpiration.setText(sdf.format(offre.dateexpiration));
         viewHolder.txt_offre_lieuarrivee.setText(offre.lieuarrivee);
         viewHolder.txt_offre_lieudepart.setText(offre.lieudepart);
-        viewHolder.txt_offre_delais.setText( ((offre.dateexpiration.getTime() - offre.datechargement.getTime())/(1000*60*60*24)) + " jour(s)");
+        viewHolder.txt_offre_delais.setText( String.format("%s jour(s)", (offre.dateexpiration.getTime() - (new Date().getTime()))/(1000*60*60*24)));
         viewHolder.txt_offre_fragile.setText(offre.fragile ? "Oui" : "Non");
 
         if(offre.masse <= 10000)

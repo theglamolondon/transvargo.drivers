@@ -1,7 +1,13 @@
 package com.transvargo.transvargo;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -9,6 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.volley.VolleyError;
 import com.google.gson.Gson;
 import com.transvargo.transvargo.http.ApiTransvargo;
 import com.transvargo.transvargo.http.ResponseHandler;
@@ -37,13 +44,13 @@ public class Principal extends MyActivityModel {
         }
 
         @Override
-        public void error(int httpCode) {
+        public void error(int httpCode, VolleyError error) {
             ProgressBar progress = (ProgressBar) findViewById(R.id.progressbar);
             progress.setVisibility(View.INVISIBLE);
 
             TextView txterror = (TextView) findViewById(R.id.txt_error);
 
-            txterror.setText("Impossible de connecter à internet");
+            txterror.setText("Impossible de se connecter à internet");
         }
     };
 
@@ -65,6 +72,36 @@ public class Principal extends MyActivityModel {
                 startActivity(intent);
             }
         });
+
+        BottomNavigationView navigationBar = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+
+        navigationBar.setOnNavigationItemSelectedListener(
+            new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                    switch (item.getItemId()){
+
+                        case R.id.action_ongle_1:
+                            startActivity(new Intent(getBaseContext(), Principal.class));
+                            break;
+                        case R.id.action_ongle_2:
+                            startActivity(new Intent(getBaseContext(), Chargement.class));
+                            break;
+                        case R.id.action_ongle_3:
+                            //Action quand onglet 2 sélectionné
+                            break;
+
+                        default:
+                            //Action quand onglet 3 sélectionné
+
+                            break;
+                    }
+
+                    return true;
+                };
+            }
+        );
 
         new Runnable(){
             @Override
@@ -118,5 +155,28 @@ public class Principal extends MyActivityModel {
 
             this.fillListe(liste);
         }
+    }
+
+    public void onBackPressed()
+    {
+        Log.e("#Trans-API#","back button pressed");
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(Principal.this);
+        builder.setMessage("Êtes-vous sur de vouloir quitter l'application ?");
+        builder.setCancelable(false);
+
+        builder.setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+            }
+        });
+
+        builder.setNegativeButton("Non", new DialogInterface.OnClickListener() {
+            public void onClick(final DialogInterface dialog, final int id) {
+                dialog.cancel();
+            }
+        });
+
+        builder.show();
     }
 }

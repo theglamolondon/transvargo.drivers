@@ -175,7 +175,12 @@ public class ListeOffreAction extends HttpRequest {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e("#Trans-API#", error.toString());
-                handler.error(0);
+                VolleyError error1 = error;
+                try {
+                    handler.error(error.networkResponse != null ? error.networkResponse.statusCode : 0, error1);
+                }catch (NullPointerException e){
+                    e.printStackTrace();
+                }
             }
         }) {
             @Override

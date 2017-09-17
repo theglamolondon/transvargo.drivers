@@ -28,8 +28,21 @@
             android:name=".Login"
             android:label="@string/title_activity_login"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".DetailsOffre"
-            android:label="@string/title_activity_details_offre"/>
+        <activity
+            android:name=".DetailsOffre"
+            android:label="@string/title_activity_details_offre" />
+        <activity
+            android:name=".Reservation"
+            android:label="@string/title_activity_reservation" />
+        <activity
+            android:name=".Chargement"
+            android:label="@string/title_activity_chargement"
+            android:parentActivityName=".MyActivityModel"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.transvargo.transvargo.MyActivityModel" />
+        </activity>
     </application>
 
 </manifest>

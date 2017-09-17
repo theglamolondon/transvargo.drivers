@@ -2,9 +2,14 @@
     <string name="app_name">Transvargo</string>
     <string name="app_spec">DRIVERS</string>
 
+    <string name="menu_offres">Offres</string>
+    <string name="menu_expeditions">Mes expéditions</string>
+    <string name="menu_profile">Profil</string>
+
     <string name="title_activity_demarrage">Demarrage</string>
     <string name="title_activity_login">Connexion</string>
     <string name="title_activity_details_offre">Details de l\'offre</string>
+    <string name="title_activity_reservation">Réserver une offre</string>
 
     <string name="login_email">Email ou n° téléphone</string>
     <string name="login_password">Mot de passe</string>
@@ -15,9 +20,14 @@
 
     <string name="title_details_marchandise">Marchandises</string>
     <string name="title_details_options">Transport</string>
+    <string name="title_details_affectation">Affectation</string>
     <string name="title_details_masse">Masse</string>
     <string name="title_details_camion">Type camion</string>
     <string name="title_prix">Rémunération</string>
+    <string name="title_chauffeur">Chauffeur</string>
     <string name="title_details_fragile">Fragile</string>
     <string name="title_details_distance">Distance</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="title_activity_chargement">Mes chargements</string>
 </resources>

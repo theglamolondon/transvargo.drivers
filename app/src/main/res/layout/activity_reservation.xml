@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.transvargo.transvargo.Reservation"
+    android:padding="10dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/title_details_options"
+        android:textStyle="bold"
+        android:textSize="@dimen/text_h1"
+        android:layout_marginTop="10dp"
+        android:gravity="center"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/liste_apparence"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_normal"
+                android:text="@string/title_details_camion"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/txt_reserv_typecamion"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/text_normal"
+                android:textAlignment="viewEnd"
+                android:textStyle="bold"
+                android:text="Camion plateaux"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/black_overlay"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_normal"
+                android:text="@string/title_prix"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/txt_reserv_prix"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/color_red"
+                android:textSize="@dimen/text_normal"
+                android:textAlignment="viewEnd"
+                android:textStyle="bold"
+                android:text="45800 FCFA"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/black_overlay"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_normal"
+                android:text="@string/title_details_distance"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:id="@+id/txt_reserv_distance"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold"
+                android:text="526 km"
+                android:textAlignment="viewEnd"
+                android:textSize="@dimen/text_normal"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/title_details_affectation"
+        android:textStyle="bold"
+        android:textSize="@dimen/text_h1"
+        android:layout_marginTop="10dp"
+        android:gravity="center"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/liste_apparence"
+        android:padding="10dp">
+
+        <Spinner
+            android:id="@+id/spi_reserv_list_vehicle"
+            android:layout_width="match_parent"
+            android:padding="1dp"
+            android:spinnerMode="dropdown"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/black_overlay"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="4dp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textColor="@color/colorPrimary"
+                android:textSize="@dimen/text_normal"
+                android:text="@string/title_chauffeur"
+                android:layout_weight="2"/>
+
+            <TextView
+                android:id="@+id/txt_reserv_chauffeur"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_h1"
+                android:textStyle="bold"
+                android:textColor="@color/colorPrimaryDark"
+                android:layout_weight="1"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+        android:layout_marginTop="20dp"
+        android:id="@+id/btn_reserv_accept"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/button"
+        android:textSize="@dimen/text_normal"
+        android:textColor="@color/color_white"
+        android:textStyle="bold"
+        android:text="Accepter l'offre"/>
+
+</LinearLayout>

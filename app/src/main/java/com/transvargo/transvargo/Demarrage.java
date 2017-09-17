@@ -50,6 +50,7 @@ public class Demarrage extends AppCompatActivity {
 
                         Intent intent = new Intent(Demarrage.this, Principal.class);
                         startActivity(intent);
+                        finish();
 
                     }else{ //On affiche la vue de connnexion
 

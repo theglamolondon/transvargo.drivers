@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -23,6 +24,14 @@ public class Login extends AppCompatActivity {
     ResponseHandler handler = new ResponseHandler() {
         @Override
         public void doSomething(Object liste) {
+            Log.e("##TESTS##","execute login");
+            Intent openApp = new Intent(Login.this,Principal.class);
+            startActivity(openApp);
+        }
+
+        @Override
+        public <T> void doSomething(List<T> data) {
+            Log.e("##TESTS##","execute login");
             Intent openApp = new Intent(Login.this,Principal.class);
             startActivity(openApp);
         }

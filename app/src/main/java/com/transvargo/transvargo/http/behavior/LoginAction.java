@@ -12,6 +12,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.JsonRequest;
 import com.google.gson.JsonObject;
+import com.transvargo.transvargo.Boot;
 import com.transvargo.transvargo.Principal;
 import com.transvargo.transvargo.http.ApiTransvargo;
 import com.transvargo.transvargo.http.ResponseHandler;
@@ -95,7 +96,9 @@ public class LoginAction extends HttpRequest
 
                             Toast.makeText(context,"Connexion réussie",Toast.LENGTH_SHORT).show();
 
-                            action.doSomething(new ArrayList<>());
+                            Boot.setTransporteur(transporteur);
+
+                            action.doSomething(null);
 
                         } catch (JSONException e) {
                             e.printStackTrace();

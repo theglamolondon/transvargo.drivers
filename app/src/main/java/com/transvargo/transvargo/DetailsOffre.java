@@ -1,5 +1,6 @@
 package com.transvargo.transvargo;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,7 @@ import com.google.gson.Gson;
 import com.transvargo.transvargo.model.Offre;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class DetailsOffre extends MyActivityModel {
 
@@ -54,7 +56,13 @@ public class DetailsOffre extends MyActivityModel {
         this.btn_dtls_reserver.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(DetailsOffre.this,"Réservation en cours...",Toast.LENGTH_SHORT).show();
+
+                Gson gson = new Gson();
+                String gOffre = gson.toJson(offre);
+
+                Intent intent = new Intent(DetailsOffre.this, Reservation.class);
+                intent.putExtra("offre",gOffre);
+                startActivity(intent);
             }
         });
 
@@ -82,7 +90,7 @@ public class DetailsOffre extends MyActivityModel {
 
     private void fillView()
     {
-        this.txt_dtls_expire.setText("Expire dans " +((this.offre.dateexpiration.getTime() - this.offre.datechargement.getTime())/(1000*60*60*24)) + " jour(s)");
+        this.txt_dtls_expire.setText(String.format("Expire dans %s jour(s)", ((this.offre.dateexpiration.getTime() - (new Date()).getTime())/(1000*60*60*24)) ));
         this.txt_dtls_lieudepart.setText(this.offre.lieudepart);
         this.txt_dtls_datechargement.setText( String.format("Chargement à partir du %s", sdf.format(this.offre.datechargement)) );
         this.txt_dtls_chargement.setText( String.format("Contacter %s au %s. \n %s", this.offre.chargement.societechargement , this.offre.chargement.contactchargement, this.offre.chargement.adressechargement) );
