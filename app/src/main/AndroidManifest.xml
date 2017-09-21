@@ -35,13 +35,31 @@
             android:name=".Reservation"
             android:label="@string/title_activity_reservation" />
         <activity
-            android:name=".Chargement"
+            android:name=".Chargements"
             android:label="@string/title_activity_chargement"
             android:parentActivityName=".MyActivityModel"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.transvargo.transvargo.MyActivityModel" />
+        </activity>
+        <activity
+            android:name=".ItemListActivity"
+            android:label="@string/title_item_list"
+            android:parentActivityName=".MyActivityModel"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.transvargo.transvargo.MyActivityModel" />
+        </activity>
+        <activity
+            android:name=".ItemDetailActivity"
+            android:label="@string/title_item_detail"
+            android:parentActivityName=".ItemListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.transvargo.transvargo.ItemListActivity" />
         </activity>
     </application>
 

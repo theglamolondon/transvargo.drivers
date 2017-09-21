@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/action_ongle_1" android:icon="@android:drawable/ic_menu_search" android:title="@string/menu_offres"/>
-    <item android:id="@+id/action_ongle_2" android:icon="@android:drawable/stat_sys_upload_done" android:title="@string/menu_expeditions" />
-    <item android:id="@+id/action_ongle_3" android:icon="@android:drawable/star_on" android:title="@string/menu_profile"/>
+    <item android:id="@+id/action_ongle_1" android:icon="@drawable/package32" android:title="@string/menu_offres"/>
+    <item android:id="@+id/action_ongle_2" android:icon="@drawable/delivery32" android:title="@string/menu_expeditions" />
+    <item android:id="@+id/action_ongle_3" android:icon="@drawable/boy32" android:title="@string/menu_profile"/>
 </menu>

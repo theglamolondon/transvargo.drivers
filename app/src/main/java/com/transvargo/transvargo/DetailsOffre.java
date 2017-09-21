@@ -92,7 +92,7 @@ public class DetailsOffre extends MyActivityModel {
     {
         this.txt_dtls_expire.setText(String.format("Expire dans %s jour(s)", ((this.offre.dateexpiration.getTime() - (new Date()).getTime())/(1000*60*60*24)) ));
         this.txt_dtls_lieudepart.setText(this.offre.lieudepart);
-        this.txt_dtls_datechargement.setText( String.format("Chargement à partir du %s", sdf.format(this.offre.datechargement)) );
+        this.txt_dtls_datechargement.setText( String.format("Chargements à partir du %s", sdf.format(this.offre.datechargement)) );
         this.txt_dtls_chargement.setText( String.format("Contacter %s au %s. \n %s", this.offre.chargement.societechargement , this.offre.chargement.contactchargement, this.offre.chargement.adressechargement) );
         this.txt_dtls_lieuarrive.setText(this.offre.lieuarrivee);
         this.txt_dtls_datelivraison.setText( String.format("Livraison au plus tard le %s",sdf.format(this.offre.dateexpiration)) );

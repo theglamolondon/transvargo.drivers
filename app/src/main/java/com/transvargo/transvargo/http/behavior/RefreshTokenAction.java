@@ -39,7 +39,8 @@ public class RefreshTokenAction extends HttpRequest {
             @Override
             public void onErrorResponse(VolleyError error) {
                try{
-                    handler.error(error.networkResponse.statusCode, error);
+                   int status = error.networkResponse != null ? error.networkResponse.statusCode : 0;
+                    handler.error(status, error);
                 }catch (NullPointerException e){
                    e.printStackTrace();
                }

@@ -1,5 +1,6 @@
 package com.transvargo.transvargo;
 
+import android.app.ProgressDialog;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
@@ -11,6 +12,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,10 +21,18 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
+import com.android.volley.VolleyError;
+import com.transvargo.transvargo.http.ApiTransvargo;
+import com.transvargo.transvargo.http.ResponseHandler;
+import com.transvargo.transvargo.http.behavior.ListeExpeditionsAction;
+import com.transvargo.transvargo.http.behavior.ListeOffreAction;
+import com.transvargo.transvargo.model.Chargement;
+import com.transvargo.transvargo.model.Offre;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Chargement extends MyActivityModel {
+public class Chargements extends MyActivityModel {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -38,6 +48,8 @@ public class Chargement extends MyActivityModel {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+    private List<Chargement> chargements = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,7 +69,18 @@ public class Chargement extends MyActivityModel {
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         tab.setupWithViewPager(mViewPager);
+
     }
+
+    public List<Chargement> getListeChargement()
+    {
+        return this.chargements;
+    }
+
+    public void setListeChargement(List<Chargement> liste){
+        this.chargements = liste;
+    }
+
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
@@ -65,11 +88,10 @@ public class Chargement extends MyActivityModel {
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        private final List<Fragment> mFragmentList = new ArrayList<>();
+        public final List<Fragment> mFragmentList = new ArrayList<>();
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
-
             mFragmentList.add(new MesChargementsFragment());
             mFragmentList.add(new MesChargementsEncoursFragment());
         }

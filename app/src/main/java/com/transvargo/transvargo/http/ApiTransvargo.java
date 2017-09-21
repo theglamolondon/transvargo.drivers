@@ -24,6 +24,7 @@ public class ApiTransvargo {
     public static String OFFRE_LISTE_URL = ApiTransvargo.url + "expeditions/offers/list";
     public static String VEHICULE_LISTE_URL = ApiTransvargo.url + "expeditions/transporteur/%s/vehicule/%s/list"; //1er %s => id transporteur & 2ème %s => categorie du véhicule
     public static String ACCEPT_OFFRE_URL = ApiTransvargo.url + "expeditions/offers/accept";
+    public static String MY_EXPEDITIONS = ApiTransvargo.url + "%s/expeditions/list";
 
     private ApiTransvargo mInstance;
     private RequestQueue mRequestQueue;

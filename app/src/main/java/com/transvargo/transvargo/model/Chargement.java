@@ -16,4 +16,7 @@ public class Chargement
     public String adresselivraison;
     public String societelivraison;
     public String contactlivraison;
+
+    public Offre expedition;
+    public Vehicule vehicule;
 }

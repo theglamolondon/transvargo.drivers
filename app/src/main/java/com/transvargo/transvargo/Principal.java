@@ -74,6 +74,7 @@ public class Principal extends MyActivityModel {
         });
 
         BottomNavigationView navigationBar = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        //navigationBar.
 
         navigationBar.setOnNavigationItemSelectedListener(
             new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -83,18 +84,13 @@ public class Principal extends MyActivityModel {
                     switch (item.getItemId()){
 
                         case R.id.action_ongle_1:
-                            startActivity(new Intent(getBaseContext(), Principal.class));
+                            //startActivity(new Intent(getBaseContext(), Principal.class));
                             break;
                         case R.id.action_ongle_2:
-                            startActivity(new Intent(getBaseContext(), Chargement.class));
+                            startActivity(new Intent(getBaseContext(), Chargements.class));
                             break;
                         case R.id.action_ongle_3:
                             //Action quand onglet 2 sélectionné
-                            break;
-
-                        default:
-                            //Action quand onglet 3 sélectionné
-
                             break;
                     }
 
@@ -114,7 +110,6 @@ public class Principal extends MyActivityModel {
 
             }
         }.run();
-
     }
 
     private void fillListe(List<Offre> offres)

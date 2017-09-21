@@ -131,7 +131,7 @@ public class ListeOffreAction extends HttpRequest {
                         client.contact = rClient.getString("contact");
                         client.raisonsociale = rClient.getString("raisonsociale");
 
-                        //Chargement
+                        //Chargements
                         JSONObject rChargement = rOffre.getJSONObject("chargement");
                         Chargement chargement = new Chargement();
                         chargement.id = rChargement.getInt("id");
@@ -175,9 +175,8 @@ public class ListeOffreAction extends HttpRequest {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e("#Trans-API#", error.toString());
-                VolleyError error1 = error;
                 try {
-                    handler.error(error.networkResponse != null ? error.networkResponse.statusCode : 0, error1);
+                    handler.error(error.networkResponse != null ? error.networkResponse.statusCode : 0, error);
                 }catch (NullPointerException e){
                     e.printStackTrace();
                 }

@@ -36,8 +36,7 @@ public class MesChargementsEncoursFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_chargement_en_cours, container, false);
-        TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-        textView.setText("Mes chargements en cours");
+        //TextView textView = (TextView) rootView.findViewById(R.id.section_label);
         return rootView;
     }
 }
