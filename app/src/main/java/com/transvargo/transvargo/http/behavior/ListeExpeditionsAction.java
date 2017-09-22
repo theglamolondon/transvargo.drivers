@@ -16,6 +16,7 @@ import com.transvargo.transvargo.model.Client;
 import com.transvargo.transvargo.model.Offre;
 import com.transvargo.transvargo.model.Transporteur;
 import com.transvargo.transvargo.model.Vehicule;
+import com.transvargo.transvargo.processing.StoreCache;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,7 +43,7 @@ public class ListeExpeditionsAction extends HttpRequest {
         this.handler = handler;
     }
 
-    public JsonArrayRequest executeJsonArrayHttpRequest(Context context)
+    public JsonArrayRequest executeJsonArrayHttpRequest(final Context context)
     {
         Log.w("#Trans-API#", "begin request : " + String.format(ApiTransvargo.MY_EXPEDITIONS, Boot.getTransporteurConnecte().identite.id));
 
@@ -50,6 +51,9 @@ public class ListeExpeditionsAction extends HttpRequest {
             @Override
             public void onResponse(JSONArray response) {
                 Log.i("#Trans-API#", response.toString());
+
+                StoreCache.store(context,StoreCache.TRANSVARGO_MY_CHARGEMENTS, response.toString());
+
                 handler.doSomething(processResponse(response));
             }
         }, new Response.ErrorListener() {
@@ -78,11 +82,8 @@ public class ListeExpeditionsAction extends HttpRequest {
 
     private ArrayList<Chargement> processResponse(JSONArray response)
     {
-        JSONObject rChargement = null;
-        Chargement chargement = null;
-
-        JSONObject rOffre = null;
-        JSONObject rVehicule = null;
+        JSONObject rChargement ;
+        Chargement chargement ;
 
         ArrayList<Chargement> list = new ArrayList<>();
 

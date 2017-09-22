@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Transvargo</string>
     <string name="app_spec">DRIVERS</string>
+    <string name="api_map_key">AIzaSyBX8d56y_BUiYA_m9WfrKbTeFPaOEAGuVw</string>
 
     <string name="menu_offres">Offres</string>
     <string name="menu_expeditions">Mes expéditions</string>

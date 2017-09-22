@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.transvargo.transvargo">
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
@@ -37,30 +39,19 @@
         <activity
             android:name=".Chargements"
             android:label="@string/title_activity_chargement"
-            android:parentActivityName=".MyActivityModel"
+            android:parentActivityName=".Principal"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.transvargo.transvargo.MyActivityModel" />
+                android:value="com.transvargo.transvargo.Principal" />
         </activity>
-        <activity
-            android:name=".ItemListActivity"
-            android:label="@string/title_item_list"
-            android:parentActivityName=".MyActivityModel"
-            android:theme="@style/AppTheme.NoActionBar">
+        <activity android:name=".DetailsChargement">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.transvargo.transvargo.MyActivityModel" />
+                android:value=".Chargements" />
         </activity>
-        <activity
-            android:name=".ItemDetailActivity"
-            android:label="@string/title_item_detail"
-            android:parentActivityName=".ItemListActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.transvargo.transvargo.ItemListActivity" />
-        </activity>
+
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="@string/api_map_key"/>
     </application>
 
 </manifest>

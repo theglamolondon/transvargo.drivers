@@ -2,6 +2,7 @@ package com.transvargo.transvargo.http;
 
 import android.content.Context;
 
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -18,13 +19,13 @@ import org.json.JSONObject;
 
 public class ApiTransvargo {
 
-    private static String url = "https://www.transvargo.com/public/api/";
+    private static String url = "http://www.transvargo.com/public/api/";
     public static String LOGIN_URL = ApiTransvargo.url + "login";
     public static String LOGIN_REFRESH_TOKEN = ApiTransvargo.url + "refresh/token";
     public static String OFFRE_LISTE_URL = ApiTransvargo.url + "expeditions/offers/list";
     public static String VEHICULE_LISTE_URL = ApiTransvargo.url + "expeditions/transporteur/%s/vehicule/%s/list"; //1er %s => id transporteur & 2ème %s => categorie du véhicule
     public static String ACCEPT_OFFRE_URL = ApiTransvargo.url + "expeditions/offers/accept";
-    public static String MY_EXPEDITIONS = ApiTransvargo.url + "%s/expeditions/list";
+    public static String MY_EXPEDITIONS = ApiTransvargo.url + "%s/expeditions/list"; //1er %s => id transporteur
 
     private ApiTransvargo mInstance;
     private RequestQueue mRequestQueue;
@@ -48,9 +49,14 @@ public class ApiTransvargo {
         JsonArrayRequest _rA = http.executeJsonArrayHttpRequest(mContext);
         JsonObjectRequest _rO = http.executeJsonObjectHttpRequest(mContext);
 
-        if(_rA != null){ getRequestQueue().add(_rA); }
-
-        if(_rO != null){ getRequestQueue().add(_rO); }
+        if(_rA != null){
+            _rA.setRetryPolicy(new DefaultRetryPolicy(120000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            getRequestQueue().add(_rA);
+        }
+        if(_rO != null) {
+            _rO.setRetryPolicy(new DefaultRetryPolicy(120000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+            getRequestQueue().add(_rO);
+        }
 
         getRequestQueue().start();
     }

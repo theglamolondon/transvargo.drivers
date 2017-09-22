@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.transvargo.transvargo.DetailsChargement">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="3dp"
+        android:paddingRight="3dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="7dp"
+            android:paddingBottom="7dp"
+            android:background="@drawable/shadow">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_weight="0"
+                android:src="@mipmap/ic_expediteur"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingLeft="9dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/txt_dtls_chgmt_expediteur"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Will Koffi"
+                    android:textStyle="bold"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_normal"/>
+
+                <TextView
+                    android:id="@+id/txt_dtls_chgmt_societe"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Socotaf Bouaké"
+                    android:textColorLink="@color/colorBackground"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_descri"/>
+
+            </LinearLayout>
+
+            <Button
+                android:paddingRight="5dp"
+                android:id="@+id/btn_dtls_chgmt_call"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_weight="0"
+                android:textAllCaps="true"
+                android:textStyle="bold"
+                android:textDirection="rtl"
+                android:layout_gravity="center"
+                android:background="@mipmap/ic_call"
+                android:rotation="10"/>
+
+        </LinearLayout>
+
+        <com.google.android.gms.maps.MapView
+            android:id="@+id/mapView"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:apiKey="@string/api_map_key"
+            android:clickable="true" />
+
+        <LinearLayout
+            android:layout_marginTop="7dp"
+            android:layout_marginBottom="7dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_dtls_chgmt_livrer"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/button"
+            android:clickable="true"
+            android:gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="effectuer la livraison"
+            android:textSize="@dimen/text_h1"
+            android:textStyle="bold"
+            android:textColor="@color/color_white" />
+    </LinearLayout>
+
+</ScrollView>

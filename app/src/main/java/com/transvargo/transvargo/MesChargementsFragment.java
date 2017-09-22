@@ -2,6 +2,7 @@ package com.transvargo.transvargo;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
@@ -17,13 +19,31 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 import com.transvargo.transvargo.http.ApiTransvargo;
 import com.transvargo.transvargo.http.ResponseHandler;
 import com.transvargo.transvargo.http.behavior.ListeExpeditionsAction;
 import com.transvargo.transvargo.model.Chargement;
+import com.transvargo.transvargo.model.Client;
+import com.transvargo.transvargo.model.Offre;
+import com.transvargo.transvargo.model.Transporteur;
+import com.transvargo.transvargo.model.Vehicule;
+import com.transvargo.transvargo.processing.StoreCache;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -40,6 +60,10 @@ public class MesChargementsFragment extends Fragment {
     private ListView listView;
     private ProgressDialog progressDialog;
     private ChargementAdapter adapter;
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+
+    Gson gson ;
 
     private ResponseHandler handler = new ResponseHandler() {
         @Override
@@ -51,12 +75,31 @@ public class MesChargementsFragment extends Fragment {
         @Override
         public void error(int httpCode, VolleyError error) {
             super.error(httpCode, error);
+
+            String json = StoreCache.getString(getActivity(), StoreCache.TRANSVARGO_MY_CHARGEMENTS);
+
+            //JsonArray jp = new JsonParser().parse(json).getAsJsonArray();
+
+            if(json != null && false){
+                /*Log.i("###API-Cache", jp.getAsString());
+                List<Chargement> chargements = processFromCache(jp.getAsString());
+
+                ((Chargements)getActivity()).setListeChargement(chargements);
+
+
+                fillView(); */
+                Toast.makeText(getActivity(),"Affichage à partir du cache.", Toast.LENGTH_LONG).show();
+            }else {
+                Toast.makeText(getActivity(),"Impossible de se connecter au serveur. Veuillez ressayer dans un instant.", Toast.LENGTH_LONG).show();
+            }
+
             progressDialog.dismiss();
-            Toast.makeText(getActivity(),"Impossible de se connecter au serveur. Veuillez ressayer dans un instant.", Toast.LENGTH_LONG).show();
         }
     };
 
-    public MesChargementsFragment() {}
+    public MesChargementsFragment() {
+        this.gson = new GsonBuilder().disableHtmlEscaping().create();
+    }
 
     /**
      * Returns a new instance of this fragment for the given section
@@ -70,12 +113,163 @@ public class MesChargementsFragment extends Fragment {
         return fragment;
     }
 
+    public ArrayList<Chargement> processFromCache(String json)
+    {
+        ArrayList<Chargement> list = new ArrayList<>();
+
+        try{
+        JSONArray response = new JSONArray(json);
+        JSONObject rChargement;
+        Chargement chargement;
+
+
+        for (int i = 0; i <= response.length() - 1; i++)
+        {
+            chargement = new Chargement();
+
+            try {
+                rChargement = response.getJSONObject(i);
+                chargement.id = rChargement.getInt("id");
+
+                if(rChargement.getString("dateheurechargement") != null)
+                {
+                    try {
+                        chargement.dateheurechargement = dateFormat.parse(rChargement.getString("dateheurechargement"));
+                    } catch (ParseException e) {
+                        chargement.dateheurechargement = new Date();
+                        e.printStackTrace();
+                    }
+                }else {
+                    chargement.dateheurechargement = new Date();
+                }
+
+                chargement.adresselivraison = rChargement.getString("adresselivraison");
+                chargement.adressechargement = rChargement.getString("adressechargement");
+                chargement.societechargement = rChargement.getString("societechargement");
+                chargement.contactchargement = rChargement.getString("contactchargement");
+                chargement.adresselivraison = rChargement.getString("adresselivraison");
+                chargement.societelivraison = rChargement.getString("societelivraison");
+
+                chargement.vehicule = getVehiculeFromJSON(rChargement.getJSONObject("vehicule"));
+                chargement.expedition = getExpeditionFromJSON(rChargement.getJSONObject("expedition"));
+
+                list.add(chargement);
+
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
+        }
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+
+        return list;
+    }
+
+    private Vehicule getVehiculeFromJSON(JSONObject rVehicule)
+    {
+        Vehicule vehicule = new Vehicule();
+
+        try{
+            vehicule.id = rVehicule.getInt("id");
+            vehicule.immatriculation = rVehicule.getString("immatriculation");
+            vehicule.telephone = rVehicule.getString("telephone");
+            vehicule.chauffeur = rVehicule.getString("chauffeur");
+
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+
+        return  vehicule;
+    }
+
+    private Offre getExpeditionFromJSON(JSONObject rExpedition)
+    {
+        Offre offre = new Offre();
+
+        try {
+            if (rExpedition.getString("datechargement") != null) {
+                try {
+                    offre.datechargement = dateFormat.parse(rExpedition.getString("datechargement"));
+                } catch (ParseException e) {
+                    offre.datechargement = new Date();
+                    e.printStackTrace();
+                }
+            }
+            if (rExpedition.getString("dateexpiration") != null) {
+                try {
+                    offre.dateexpiration = dateFormat.parse(rExpedition.getString("dateexpiration"));
+                } catch (ParseException e) {
+                    offre.dateexpiration = new Date();
+                    e.printStackTrace();
+                }
+            }
+            if (rExpedition.getString("dateheurelivraison") != null) {
+                try {
+                    offre.dateheurelivraison = dateFormat.parse(rExpedition.getString("dateheurelivraison"));
+                } catch (ParseException e) {
+                    offre.dateheurelivraison = new Date();
+                    e.printStackTrace();
+                }
+            }
+            if (rExpedition.getString("dateheureacceptation") != null) {
+                try {
+                    offre.dateheureacceptation = dateFormat.parse(rExpedition.getString("dateheureacceptation"));
+                } catch (ParseException e) {
+                    offre.dateheureacceptation = new Date();
+                    e.printStackTrace();
+                }
+            }
+
+            offre.id = rExpedition.getInt("id");
+            offre.reference = rExpedition.getString("reference");
+            offre.coordarrivee = rExpedition.getString("coordarrivee");
+            offre.coorddepart = rExpedition.getString("coorddepart");
+            offre.masse = rExpedition.getLong("masse");
+            offre.fragile = rExpedition.getBoolean("fragile");
+
+            Double rPrix = (Transporteur.pourcentage * rExpedition.getInt("prix"));
+            offre.prix = rPrix.intValue();
+
+            offre.distance = rExpedition.getInt("distance");
+            offre.lieudepart = rExpedition.getString("lieudepart");
+            offre.lieuarrivee = rExpedition.getString("lieuarrivee");
+            offre.statut = rExpedition.getString("statut");
+
+            //Client
+            JSONObject rClient = rExpedition.getJSONObject("client");
+            Client client = new Client();
+            client.nom = rClient.getString("nom");
+            client.prenoms = rClient.getString("prenoms");
+            client.contact = rClient.getString("contact");
+            client.raisonsociale = rClient.getString("raisonsociale");
+
+            offre.client = client;
+
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+
+        return offre;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
 
         View rootView = inflater.inflate(R.layout.fragment_chargement, container, false);
         this.listView = (ListView) rootView.findViewById(R.id.fragment_liste_chargement);
+        this.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Chargement chargement = ((Chargements)getActivity()).getListeChargement().get(position);
+
+                Gson gson = new Gson();
+                Intent intent = new Intent(getActivity(),DetailsChargement.class);
+                intent.putExtra("chargement",gson.toJson(chargement));
+                startActivity(intent);
+            }
+        });
 
 
         this.progressDialog = ProgressDialog.show(getActivity(), "","Récupération de vos chargements ...", true);
