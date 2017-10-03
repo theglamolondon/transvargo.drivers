@@ -2,10 +2,13 @@ package com.transvargo.transvargo;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.transvargo.transvargo.model.Chargement;
 
 /**
  * Created by BW.KOFFI on 17/09/2017.
@@ -17,6 +20,7 @@ public class MesChargementsEncoursFragment extends Fragment {
      * fragment.
      */
     private static final String ARG_SECTION_NUMBER = "section_number";
+    TextView textView;
 
     public MesChargementsEncoursFragment() {}
 
@@ -36,7 +40,18 @@ public class MesChargementsEncoursFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_chargement_en_cours, container, false);
-        //TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+        TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+
+        textView.setText(((Chargements)getActivity()).getListeChargement(Chargement.STATE_EN_COURS).toString());
+
         return rootView;
+    }
+
+    public void updateListe() {
+
+        if(textView != null){
+            textView.setText(((Chargements)getActivity()).getListeChargement(Chargement.STATE_EN_COURS).toString());
+        }
+
     }
 }

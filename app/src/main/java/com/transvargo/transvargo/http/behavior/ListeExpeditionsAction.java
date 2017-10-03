@@ -107,12 +107,14 @@ public class ListeExpeditionsAction extends HttpRequest {
                     chargement.dateheurechargement = new Date();
                 }
 
-                chargement.adresselivraison = rChargement.getString("adresselivraison");
                 chargement.adressechargement = rChargement.getString("adressechargement");
                 chargement.societechargement = rChargement.getString("societechargement");
                 chargement.contactchargement = rChargement.getString("contactchargement");
+                chargement.telephonechargement = rChargement.getString("telephonechargement");
                 chargement.adresselivraison = rChargement.getString("adresselivraison");
                 chargement.societelivraison = rChargement.getString("societelivraison");
+                chargement.contactlivraison = rChargement.getString("contactlivraison");
+                chargement.telephonelivraison = rChargement.getString("telephonelivraison");
 
                 chargement.vehicule = getVehiculeFromJSON(rChargement.getJSONObject("vehicule"));
                 chargement.expedition = getExpeditionFromJSON(rChargement.getJSONObject("expedition"));

@@ -137,8 +137,10 @@ public class ListeOffreAction extends HttpRequest {
                         chargement.id = rChargement.getInt("id");
                         chargement.societechargement = rChargement.getString("societechargement");
                         chargement.contactchargement = rChargement.getString("contactchargement");
+                        chargement.telephonechargement = rChargement.getString("telephonechargement");
                         chargement.adressechargement = rChargement.getString("adressechargement");
                         chargement.contactlivraison = rChargement.getString("contactlivraison");
+                        chargement.telephonelivraison = rChargement.getString("telephonelivraison");
                         chargement.societelivraison = rChargement.getString("societelivraison");
                         chargement.adresselivraison = rChargement.getString("adresselivraison");
                         if (rChargement.getString("dateheurechargement") != null) {

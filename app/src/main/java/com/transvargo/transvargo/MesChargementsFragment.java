@@ -69,6 +69,9 @@ public class MesChargementsFragment extends Fragment {
         @Override
         public <T> void doSomething(List<T> data) {
             ((Chargements)getActivity()).setListeChargement((ArrayList<Chargement>) data);
+
+            ((Chargements)getActivity()).notifyFragmentEncours();
+
             fillView();
         }
 
@@ -143,12 +146,14 @@ public class MesChargementsFragment extends Fragment {
                     chargement.dateheurechargement = new Date();
                 }
 
-                chargement.adresselivraison = rChargement.getString("adresselivraison");
                 chargement.adressechargement = rChargement.getString("adressechargement");
                 chargement.societechargement = rChargement.getString("societechargement");
                 chargement.contactchargement = rChargement.getString("contactchargement");
+                chargement.telephonechargement = rChargement.getString("telephonechargement");
                 chargement.adresselivraison = rChargement.getString("adresselivraison");
                 chargement.societelivraison = rChargement.getString("societelivraison");
+                chargement.contactlivraison = rChargement.getString("contactlivraison");
+                chargement.telephonelivraison = rChargement.getString("telephonelivraison");
 
                 chargement.vehicule = getVehiculeFromJSON(rChargement.getJSONObject("vehicule"));
                 chargement.expedition = getExpeditionFromJSON(rChargement.getJSONObject("expedition"));
@@ -262,7 +267,7 @@ public class MesChargementsFragment extends Fragment {
         this.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Chargement chargement = ((Chargements)getActivity()).getListeChargement().get(position);
+                Chargement chargement = ((Chargements)getActivity()).getListeChargement(Chargement.STATE_PROGRAMME).get(position);
 
                 Gson gson = new Gson();
                 Intent intent = new Intent(getActivity(),DetailsChargement.class);
@@ -274,7 +279,7 @@ public class MesChargementsFragment extends Fragment {
 
         this.progressDialog = ProgressDialog.show(getActivity(), "","Récupération de vos chargements ...", true);
 
-        if(((Chargements) getActivity()).getListeChargement() != null)
+        if(((Chargements) getActivity()).getListeChargement(Chargement.STATE_PROGRAMME) != null)
         {
             new Runnable(){
                 @Override
@@ -293,7 +298,7 @@ public class MesChargementsFragment extends Fragment {
     }
 
     public void fillView(){
-        this.adapter = new ChargementAdapter(getActivity(), ((Chargements)getActivity()).getListeChargement() );
+        this.adapter = new ChargementAdapter(getActivity(), ((Chargements)getActivity()).getListeChargement(Chargement.STATE_PROGRAMME) );
         this.listView.setAdapter(this.adapter);
 
         this.progressDialog.dismiss();
@@ -341,10 +346,11 @@ public class MesChargementsFragment extends Fragment {
                 viewHolder.txt_arrivee  = (TextView) convertView.findViewById(R.id.txt_chrgmt_arrivee);
                 viewHolder.txt_datechargement  = (TextView) convertView.findViewById(R.id.txt_chrgmt_datechargement);
                 viewHolder.txt_dateexpiration  = (TextView) convertView.findViewById(R.id.txt_chrgmt_dateexpiration);
+                /*
                 viewHolder.txt_fragile  = (TextView) convertView.findViewById(R.id.txt_chrgmt_fragile);
                 viewHolder.txt_distance  = (TextView) convertView.findViewById(R.id.txt_chrgmt_distance);
                 viewHolder.txt_masse  = (TextView) convertView.findViewById(R.id.txt_chrgmt_masse);
-
+                */
                 convertView.setTag(viewHolder);
             }
 
@@ -357,6 +363,7 @@ public class MesChargementsFragment extends Fragment {
             viewHolder.txt_datechargement.setText(sdf.format(chargement.expedition.datechargement));
             viewHolder.txt_dateexpiration.setText(sdf.format(chargement.expedition.dateexpiration));
 
+            /*
             viewHolder.txt_fragile.setText(chargement.expedition.fragile ? "Oui" : "Non");
             viewHolder.txt_distance.setText(String.format("%s km", chargement.expedition.distance));
 
@@ -366,7 +373,7 @@ public class MesChargementsFragment extends Fragment {
             }else {
                 viewHolder.txt_masse.setText(chargement.expedition.masse + " kg");
             }
-
+            */
             return convertView;
         }
 

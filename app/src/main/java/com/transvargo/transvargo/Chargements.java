@@ -69,12 +69,25 @@ public class Chargements extends MyActivityModel {
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         tab.setupWithViewPager(mViewPager);
-
     }
 
-    public List<Chargement> getListeChargement()
+    public void notifyFragmentEncours()
     {
-        return this.chargements;
+        MesChargementsEncoursFragment fragment = (MesChargementsEncoursFragment) this.mSectionsPagerAdapter.getItem(1);
+        fragment.updateListe();
+    }
+
+    public List<Chargement> getListeChargement(String statut)
+    {
+        List<Chargement> liste = new ArrayList<>();
+
+        for( Chargement chargement: this.chargements ) {
+
+            if( chargement.expedition.statut.equals(statut) ){
+                liste.add(chargement);
+            }
+        }
+        return liste;
     }
 
     public void setListeChargement(List<Chargement> liste){
@@ -105,8 +118,7 @@ public class Chargements extends MyActivityModel {
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            return 2;
+            return mFragmentList.size();
         }
 
         @Override

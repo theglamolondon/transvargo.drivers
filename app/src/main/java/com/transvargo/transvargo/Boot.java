@@ -5,6 +5,7 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.android.volley.VolleyError;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.transvargo.transvargo.http.ApiTransvargo;
 import com.transvargo.transvargo.http.ResponseHandler;
 import com.transvargo.transvargo.http.behavior.RefreshTokenAction;
@@ -57,6 +58,9 @@ public class Boot extends Application {
     @Override
     public void onCreate(){
         super.onCreate();
+
+        //Souscription de au topic de Firebase "drivers"
+        FirebaseMessaging.getInstance().subscribeToTopic("drivers");
 
         transporteur = StoreCache.getObject(this,StoreCache.TRANSVARGO_TRANSPORTEUR,Transporteur.class);
 

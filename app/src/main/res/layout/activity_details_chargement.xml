@@ -76,23 +76,128 @@
             android:apiKey="@string/api_map_key"
             android:clickable="true" />
 
-        <LinearLayout
-            android:layout_marginTop="7dp"
-            android:layout_marginBottom="7dp"
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:text="@string/title_details_marchandise"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_h1"
+            android:layout_marginTop="10dp"
+            android:gravity="center"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
+            android:padding="10dp"
+            android:orientation="vertical"
+            android:baselineAligned="false"
+            android:background="@drawable/liste_apparence">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_normal"
+                    android:text="@string/title_details_masse"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/txt_dtls_chgmt_masse"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold"
+                    android:text="3,4 tonnes"
+                    android:textAlignment="viewEnd"
+                    android:textSize="@dimen/text_normal"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/black_overlay"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_normal"
+                    android:text="@string/title_details_fragile"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/txt_dtls_chgmt_fragile"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold"
+                    android:text="Oui"
+                    android:textAlignment="viewEnd"
+                    android:textSize="@dimen/text_normal"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/black_overlay"
+                android:layout_marginTop="4dp"
+                android:layout_marginBottom="4dp"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="@dimen/text_normal"
+                    android:text="@string/title_details_distance"
+                    android:layout_weight="1"/>
+
+                <TextView
+                    android:id="@+id/txt_dtls_chgmt_distance"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textStyle="bold"
+                    android:text="526 km"
+                    android:textAlignment="viewEnd"
+                    android:textSize="@dimen/text_normal"
+                    android:layout_weight="1"/>
+
+            </LinearLayout>
         </LinearLayout>
 
         <Button
-            android:id="@+id/btn_dtls_chgmt_livrer"
+            android:id="@+id/btn_dtls_chgmt_demarrer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/button"
             android:clickable="true"
             android:gravity="center"
             android:layout_marginTop="10dp"
-            android:text="effectuer la livraison"
+            android:text="démarrer le chargement"
             android:textSize="@dimen/text_h1"
             android:textStyle="bold"
             android:textColor="@color/color_white" />

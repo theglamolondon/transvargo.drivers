@@ -76,9 +76,9 @@ public class ListeProcessing extends ArrayAdapter<Offre> {
 
         if(offre.masse <= 10000)
         {
-            viewHolder.txt_offre_masse.setText((offre.masse/1000) + " T");
+            viewHolder.txt_offre_masse.setText(String.format("%s T", offre.masse/1000));
         }else {
-            viewHolder.txt_offre_masse.setText(offre.masse + " kg");
+            viewHolder.txt_offre_masse.setText(String.format("%s kg", offre.masse));
         }
 
         return convertView;

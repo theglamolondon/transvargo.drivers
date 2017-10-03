@@ -31,9 +31,12 @@ public class DetailsChargement extends AppCompatActivity {
     Chargement chargement;
 
     Button btn_call;
-    Button btn_livrer;
+    Button btn_demarrer;
     TextView txt_dtls_chgmt_expediteur;
     TextView txt_dtls_chgmt_societe;
+    TextView txt_dtls_chgmt_masse;
+    TextView txt_dtls_chgmt_fragile;
+    TextView txt_dtls_chgmt_distance;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,9 +47,12 @@ public class DetailsChargement extends AppCompatActivity {
         this.mapView.onCreate(savedInstanceState);
 
         this.btn_call = (Button) findViewById(R.id.btn_dtls_chgmt_call) ;
-        this.btn_livrer = (Button) findViewById(R.id.btn_dtls_chgmt_livrer) ;
+        this.btn_demarrer = (Button) findViewById(R.id.btn_dtls_chgmt_demarrer) ;
         this.txt_dtls_chgmt_expediteur = (TextView) findViewById(R.id.txt_dtls_chgmt_expediteur);
         this.txt_dtls_chgmt_societe = (TextView) findViewById(R.id.txt_dtls_chgmt_societe);
+        this.txt_dtls_chgmt_masse = (TextView) findViewById(R.id.txt_dtls_chgmt_masse);
+        this.txt_dtls_chgmt_fragile = (TextView) findViewById(R.id.txt_dtls_chgmt_fragile);
+        this.txt_dtls_chgmt_distance = (TextView) findViewById(R.id.txt_dtls_chgmt_distance);
 
 
         Bundle bundle = getIntent().getExtras();
@@ -57,13 +63,23 @@ public class DetailsChargement extends AppCompatActivity {
 
             this.txt_dtls_chgmt_expediteur.setText(this.chargement.expedition.client.nom+" "+this.chargement.expedition.client.prenoms);
             this.txt_dtls_chgmt_societe.setText(this.chargement.societechargement);
+            this.txt_dtls_chgmt_masse.setText(String.format("%s kg",this.chargement.expedition.masse));
+            this.txt_dtls_chgmt_fragile.setText(this.chargement.expedition.fragile ? "Oui" : "Non");
+            this.txt_dtls_chgmt_distance.setText(String.format("%s km", this.chargement.expedition.distance ));
 
             this.btn_call.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String phone = chargement.contactlivraison != null ? chargement.contactlivraison : "47631443";
+                    String phone = chargement.telephonelivraison != null ? chargement.telephonechargement : "";
                     Intent intent = new Intent(Intent.ACTION_DIAL, Uri.fromParts("tel", phone.trim(), null));
                     startActivity(intent);
+                }
+            });
+
+            this.btn_demarrer.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
                 }
             });
         }
