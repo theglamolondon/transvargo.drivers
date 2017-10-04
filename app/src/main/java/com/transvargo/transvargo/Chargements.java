@@ -92,6 +92,9 @@ public class Chargements extends MyActivityModel {
 
     public void setListeChargement(List<Chargement> liste){
         this.chargements = liste;
+        Log.e("###Liste-Chargement",liste.toString());
+        MesChargementsEncoursFragment fragment = (MesChargementsEncoursFragment) this.mSectionsPagerAdapter.getItem(1);
+        Log.e("###Fragment",fragment.toString());
     }
 
 

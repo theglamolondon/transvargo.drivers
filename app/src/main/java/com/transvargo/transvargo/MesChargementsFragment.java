@@ -69,9 +69,7 @@ public class MesChargementsFragment extends Fragment {
         @Override
         public <T> void doSomething(List<T> data) {
             ((Chargements)getActivity()).setListeChargement((ArrayList<Chargement>) data);
-
             ((Chargements)getActivity()).notifyFragmentEncours();
-
             fillView();
         }
 

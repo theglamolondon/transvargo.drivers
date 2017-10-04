@@ -43,7 +43,6 @@ public class StartChargement extends HttpRequest {
         JSONObject params  = new JSONObject();
         try {
             params.put("reference", this.chargement.expedition.reference);
-            //params.put("password",password);
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -51,6 +50,7 @@ public class StartChargement extends HttpRequest {
             @Override
             public void onResponse(JSONObject response) {
                 Log.i("Trans-API", response.toString());
+                handler.doSomething(response);
             }
         }, new Response.ErrorListener() {
             @Override

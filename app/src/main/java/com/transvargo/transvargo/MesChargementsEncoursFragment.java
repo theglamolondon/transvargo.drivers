@@ -43,14 +43,13 @@ public class MesChargementsEncoursFragment extends Fragment {
         TextView textView = (TextView) rootView.findViewById(R.id.section_label);
 
         textView.setText(((Chargements)getActivity()).getListeChargement(Chargement.STATE_EN_COURS).toString());
-
         return rootView;
     }
 
     public void updateListe() {
-
         if(textView != null){
             textView.setText(((Chargements)getActivity()).getListeChargement(Chargement.STATE_EN_COURS).toString());
+            Log.i("####",((Chargements)getActivity()).getListeChargement(Chargement.STATE_EN_COURS).toString());
         }
 
     }

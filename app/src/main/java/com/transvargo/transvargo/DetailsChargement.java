@@ -1,6 +1,7 @@
 package com.transvargo.transvargo;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -11,7 +12,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.VolleyError;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -21,14 +24,21 @@ import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.gson.Gson;
+import com.transvargo.transvargo.http.ApiTransvargo;
+import com.transvargo.transvargo.http.ResponseHandler;
+import com.transvargo.transvargo.http.behavior.StartChargement;
 import com.transvargo.transvargo.model.Chargement;
 import com.transvargo.transvargo.model.Offre;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class DetailsChargement extends AppCompatActivity {
 
     MapView mapView;
     GoogleMap map;
     Chargement chargement;
+    ProgressDialog progressDialog;
 
     Button btn_call;
     Button btn_demarrer;
@@ -38,11 +48,30 @@ public class DetailsChargement extends AppCompatActivity {
     TextView txt_dtls_chgmt_fragile;
     TextView txt_dtls_chgmt_distance;
 
+    ResponseHandler responseHandler = new ResponseHandler() {
+        @Override
+        public void doSomething(Object data) {
+            JSONObject objet = (JSONObject) data;
+            try {
+                Toast.makeText(DetailsChargement.this,objet.getString("message"),Toast.LENGTH_SHORT).show();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            progressDialog.dismiss();
+        }
+
+        @Override
+        public void error(int httpCode, VolleyError error) {
+            Toast.makeText(DetailsChargement.this,"Impossible de se connecter à internet",Toast.LENGTH_SHORT).show();
+            progressDialog.dismiss();
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details_chargement);
-
+        this.progressDialog = new ProgressDialog(this);
         this.mapView = (MapView) findViewById(R.id.mapView);
         this.mapView.onCreate(savedInstanceState);
 
@@ -79,7 +108,15 @@ public class DetailsChargement extends AppCompatActivity {
             this.btn_demarrer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-
+                    progressDialog = ProgressDialog.show(DetailsChargement.this,"","Démarrage du chargement en cours...",true);
+                    new Runnable() {
+                        @Override
+                        public void run() {
+                            ApiTransvargo api = new ApiTransvargo(DetailsChargement.this);
+                            StartChargement start = new StartChargement(chargement, responseHandler);
+                            api.executeHttpRequest(start);
+                        }
+                    }.run();
                 }
             });
         }

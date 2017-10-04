@@ -3,6 +3,7 @@ package com.transvargo.transvargo.service;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.net.Uri;
 import android.support.v4.app.NotificationCompat;
@@ -37,11 +38,16 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             Intent listeIntent = new Intent(this, Principal.class);
             PendingIntent pendingIntent = PendingIntent.getActivity(this, 555, listeIntent, 0);
 
+            NotificationCompat.BigTextStyle bigTextStyle = new NotificationCompat.BigTextStyle();
+            bigTextStyle.setBigContentTitle(json.getString("title"));
+            bigTextStyle.bigText(json.getString("message"));
+
             NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
                     .setSmallIcon(R.drawable.pico)
                     .setLights(Color.rgb(255,92,92), 500, 500)
                     .setVibrate(pattern)
                     .setAutoCancel(true)
+                    .setStyle(bigTextStyle)
                     .setContentTitle(json.getString("title"))
                     .setContentText(json.getString("message"))
                     .setSound(Uri.parse("android.resource://"+ this.getPackageName() + "/" + R.raw.incoming_exp));
