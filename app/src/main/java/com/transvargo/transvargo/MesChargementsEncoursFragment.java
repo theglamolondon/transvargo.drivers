@@ -28,7 +28,8 @@ public class MesChargementsEncoursFragment extends Fragment {
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    public static MesChargementsEncoursFragment newInstance(int sectionNumber) {
+    public static MesChargementsEncoursFragment newInstance(int sectionNumber)
+    {
         MesChargementsEncoursFragment fragment = new MesChargementsEncoursFragment();
         Bundle args = new Bundle();
         args.putInt(ARG_SECTION_NUMBER, sectionNumber);
@@ -37,20 +38,22 @@ public class MesChargementsEncoursFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         View rootView = inflater.inflate(R.layout.fragment_chargement_en_cours, container, false);
-        TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+        textView = (TextView) rootView.findViewById(R.id.section_label);
 
         textView.setText(((Chargements)getActivity()).getListeChargement(Chargement.STATE_EN_COURS).toString());
         return rootView;
     }
 
-    public void updateListe() {
+    /*
+    public void updateListe()
+    {
         if(textView != null){
             textView.setText(((Chargements)getActivity()).getListeChargement(Chargement.STATE_EN_COURS).toString());
             Log.i("####",((Chargements)getActivity()).getListeChargement(Chargement.STATE_EN_COURS).toString());
         }
-
     }
+    */
 }

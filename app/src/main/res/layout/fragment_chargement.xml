@@ -4,7 +4,8 @@
     android:layout_height="match_parent"
     tools:context="com.transvargo.transvargo.Chargements"
     android:background="@color/colorBackground"
-    android:baselineAligned="false">
+    android:baselineAligned="false"
+    android:id="@+id/linear_fragment_chargements">
 
     <ListView
         android:id="@+id/fragment_liste_chargement"

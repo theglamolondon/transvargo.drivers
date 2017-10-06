@@ -1,5 +1,6 @@
 package com.transvargo.transvargo;
 
+import android.support.v4.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -52,7 +53,8 @@ public class Chargements extends MyActivityModel {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chargement);
 
@@ -71,10 +73,22 @@ public class Chargements extends MyActivityModel {
         tab.setupWithViewPager(mViewPager);
     }
 
+    public void notifyFragmentMesChargements()
+    {
+        Fragment fragment = MesChargementsEncoursFragment.newInstance(0);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.linear_fragment_chargements, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
     public void notifyFragmentEncours()
     {
-        MesChargementsEncoursFragment fragment = (MesChargementsEncoursFragment) this.mSectionsPagerAdapter.getItem(1);
-        fragment.updateListe();
+        Fragment fragment = MesChargementsEncoursFragment.newInstance(1);
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.relativ_frgmnt_encours, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
     public List<Chargement> getListeChargement(String statut)
@@ -90,7 +104,8 @@ public class Chargements extends MyActivityModel {
         return liste;
     }
 
-    public void setListeChargement(List<Chargement> liste){
+    public void setListeChargement(List<Chargement> liste)
+    {
         this.chargements = liste;
         Log.e("###Liste-Chargement",liste.toString());
         MesChargementsEncoursFragment fragment = (MesChargementsEncoursFragment) this.mSectionsPagerAdapter.getItem(1);

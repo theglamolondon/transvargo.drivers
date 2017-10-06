@@ -20,7 +20,7 @@ import org.json.JSONObject;
 public class ApiTransvargo {
 
     //private static String url = "http://www.transvargo.com/public/api/";
-    private static String url = "http://192.168.1.14:8080/transvargo/public/api/";
+    private static String url = "http://192.168.43.147:8080/transvargo/public/api/";
     //private static String url = "http://soc-701hj12:8080/transvargo/public/api/";
     public static String LOGIN_URL = ApiTransvargo.url + "login";
     public static String LOGIN_REFRESH_TOKEN = ApiTransvargo.url + "refresh/token";

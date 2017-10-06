@@ -93,7 +93,7 @@ public class VehiculeListAction extends HttpRequest {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e("#Trans-API#", error.toString());
-                handler.error(error.networkResponse.statusCode, error);
+                handler.error( (error.networkResponse != null ? error.networkResponse.statusCode : 0), error);
             }
         }){
             @Override

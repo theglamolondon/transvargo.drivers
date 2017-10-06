@@ -52,7 +52,6 @@
         </activity>
 
         <meta-data android:name="com.google.android.geo.API_KEY" android:value="@string/api_map_key"/>
-
         <service
             android:name=".service.MyFirebaseMessagingService">
             <intent-filter>
@@ -66,8 +65,9 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
             </intent-filter>
         </service>
-
-
+        <service android:name=".service.Tracking"
+            android:enabled="true"
+            android:exported="true"/>
     </application>
 
 </manifest>

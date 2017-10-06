@@ -3,10 +3,12 @@ package com.transvargo.transvargo;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.os.AsyncTaskCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -46,6 +48,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.concurrent.CountDownLatch;
 
 /**
  * Created by BW.KOFFI on 17/09/2017.
@@ -61,7 +64,7 @@ public class MesChargementsFragment extends Fragment {
     private ProgressDialog progressDialog;
     private ChargementAdapter adapter;
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
+    AsyncTask task;
 
     Gson gson ;
 
@@ -74,31 +77,30 @@ public class MesChargementsFragment extends Fragment {
         }
 
         @Override
-        public void error(int httpCode, VolleyError error) {
+        public void error(int httpCode, VolleyError error)
+        {
             super.error(httpCode, error);
 
             String json = StoreCache.getString(getActivity(), StoreCache.TRANSVARGO_MY_CHARGEMENTS);
-
             //JsonArray jp = new JsonParser().parse(json).getAsJsonArray();
 
             if(json != null && false){
                 /*Log.i("###API-Cache", jp.getAsString());
                 List<Chargement> chargements = processFromCache(jp.getAsString());
-
                 ((Chargements)getActivity()).setListeChargement(chargements);
-
 
                 fillView(); */
                 Toast.makeText(getActivity(),"Affichage à partir du cache.", Toast.LENGTH_LONG).show();
             }else {
+                Log.e("###API-Chargement",error.getMessage());
                 Toast.makeText(getActivity(),"Impossible de se connecter au serveur. Veuillez ressayer dans un instant.", Toast.LENGTH_LONG).show();
             }
-
             progressDialog.dismiss();
         }
     };
 
-    public MesChargementsFragment() {
+    public MesChargementsFragment()
+    {
         this.gson = new GsonBuilder().disableHtmlEscaping().create();
     }
 
@@ -259,7 +261,6 @@ public class MesChargementsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-
         View rootView = inflater.inflate(R.layout.fragment_chargement, container, false);
         this.listView = (ListView) rootView.findViewById(R.id.fragment_liste_chargement);
         this.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -274,20 +275,13 @@ public class MesChargementsFragment extends Fragment {
             }
         });
 
-
-        this.progressDialog = ProgressDialog.show(getActivity(), "","Récupération de vos chargements ...", true);
+        this.progressDialog = ProgressDialog.show(getActivity(), "", "Récupération de vos chargements ...", true);
 
         if(((Chargements) getActivity()).getListeChargement(Chargement.STATE_PROGRAMME) != null)
         {
-            new Runnable(){
-                @Override
-                public void run() {
-                    ApiTransvargo api = new ApiTransvargo(getActivity());
-                    ListeExpeditionsAction liste = new ListeExpeditionsAction(handler);
-
-                    api.executeHttpRequest(liste);
-                }
-            }.run();
+            ApiTransvargo api = new ApiTransvargo(getActivity());
+            ListeExpeditionsAction liste = new ListeExpeditionsAction(handler);
+            api.executeHttpRequest(liste);
         }else{
             fillView();
         }
@@ -295,7 +289,8 @@ public class MesChargementsFragment extends Fragment {
         return rootView;
     }
 
-    public void fillView(){
+    public void fillView()
+    {
         this.adapter = new ChargementAdapter(getActivity(), ((Chargements)getActivity()).getListeChargement(Chargement.STATE_PROGRAMME) );
         this.listView.setAdapter(this.adapter);
 
@@ -303,8 +298,8 @@ public class MesChargementsFragment extends Fragment {
         this.adapter.notifyDataSetChanged();
     }
 
-    private class ChargementAdapter extends BaseAdapter {
-
+    private class ChargementAdapter extends BaseAdapter
+    {
         private Context mContext;
         private List<Chargement> mesChargements;
 
@@ -330,7 +325,8 @@ public class MesChargementsFragment extends Fragment {
 
         @NonNull
         @Override
-        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent)
+        {
 
             if(convertView == null){
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.chargement_template, parent, false);

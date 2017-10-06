@@ -41,6 +41,7 @@ public class DetailsChargement extends AppCompatActivity {
     ProgressDialog progressDialog;
 
     Button btn_call;
+    Button btn_navigation;
     Button btn_demarrer;
     TextView txt_dtls_chgmt_expediteur;
     TextView txt_dtls_chgmt_societe;
@@ -75,8 +76,9 @@ public class DetailsChargement extends AppCompatActivity {
         this.mapView = (MapView) findViewById(R.id.mapView);
         this.mapView.onCreate(savedInstanceState);
 
-        this.btn_call = (Button) findViewById(R.id.btn_dtls_chgmt_call) ;
-        this.btn_demarrer = (Button) findViewById(R.id.btn_dtls_chgmt_demarrer) ;
+        this.btn_call = (Button) findViewById(R.id.btn_dtls_chgmt_call);
+        this.btn_demarrer = (Button) findViewById(R.id.btn_dtls_chgmt_demarrer);
+        this.btn_navigation = (Button) findViewById(R.id.btn_dtls_chgmt_map);
         this.txt_dtls_chgmt_expediteur = (TextView) findViewById(R.id.txt_dtls_chgmt_expediteur);
         this.txt_dtls_chgmt_societe = (TextView) findViewById(R.id.txt_dtls_chgmt_societe);
         this.txt_dtls_chgmt_masse = (TextView) findViewById(R.id.txt_dtls_chgmt_masse);
@@ -104,6 +106,18 @@ public class DetailsChargement extends AppCompatActivity {
                     startActivity(intent);
                 }
             });
+            this.btn_navigation.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    String URLMaps = "google.navigation:q=%s"; //google.navigation:q=latitude,longitude
+
+                    //Lancement google Maps
+                    Uri googleMapUri = Uri.parse(String.format(URLMaps,chargement.expedition.coorddepart));
+                    Intent mapIntent = new Intent(Intent.ACTION_VIEW,googleMapUri);
+                    //mapIntent.setPackage("com.google.android.apps.maps");
+                    startActivityForResult(mapIntent,1234);
+                }
+            });
 
             this.btn_demarrer.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -129,7 +143,24 @@ public class DetailsChargement extends AppCompatActivity {
 
             //checkPermission
             if (ActivityCompat.checkSelfPermission(DetailsChargement.this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-                    && ActivityCompat.checkSelfPermission(DetailsChargement.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    && ActivityCompat.checkSelfPermission(DetailsChargement.this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+            {
+                Log.e("###Trans Permission","Aucune permission de Localisation n'a été accordée");
+
+                //Activer la permission si elle n'est pas donnée
+                if (ActivityCompat.shouldShowRequestPermissionRationale(DetailsChargement.this, Manifest.permission.READ_CONTACTS))
+                {
+                    map.setMyLocationEnabled(true);
+
+                    MapsInitializer.initialize(DetailsChargement.this);
+
+                    String[] raw = chargement.expedition.coordarrivee.split(",");
+                    CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(Float.parseFloat(raw[0]), Float.parseFloat(raw[1])), 10);
+
+                    map.animateCamera(cameraUpdate);
+                }
+
+            }else{
                 map.setMyLocationEnabled(true);
 
                 MapsInitializer.initialize(DetailsChargement.this);
@@ -138,8 +169,6 @@ public class DetailsChargement extends AppCompatActivity {
                 CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(Float.parseFloat(raw[0]), Float.parseFloat(raw[1])), 10);
 
                 map.animateCamera(cameraUpdate);
-            }else{
-                Log.e("###Trans Permission","Aucune permission de Localisation n'a été accordée");
             }
             }
         });

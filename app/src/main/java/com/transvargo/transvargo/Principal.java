@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
 import android.view.MenuItem;
@@ -36,9 +37,13 @@ public class Principal extends MyActivityModel {
     RelativeLayout rWait;
 
     ListView lwListeOffres  = null;
+    SwipeRefreshLayout swipe_layout  = null;
     ResponseHandler handle = new ResponseHandler() {
         @Override
         public <T extends Object> void doSomething(List<T> data) {
+
+            swipe_layout.setRefreshing(false);
+
             ArrayList<Offre> list = (ArrayList<Offre>) data;
             fillListe(list);
         }
@@ -49,8 +54,9 @@ public class Principal extends MyActivityModel {
             progress.setVisibility(View.INVISIBLE);
 
             TextView txterror = (TextView) findViewById(R.id.txt_error);
+            txterror.setText("Impossible de se connecter à internet." + "\n\r" + "Glisser vers le bas pour actualiser");
 
-            txterror.setText("Impossible de se connecter à internet");
+            swipe_layout.setRefreshing(false);
         }
     };
 
@@ -62,6 +68,8 @@ public class Principal extends MyActivityModel {
         this.rWait = (RelativeLayout) findViewById(R.id.rWait);
 
         this.lwListeOffres = (ListView) findViewById(R.id.lwListeOffres);
+        this.swipe_layout = (SwipeRefreshLayout) findViewById(R.id.swipe_layout);
+
         this.lwListeOffres.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -70,6 +78,13 @@ public class Principal extends MyActivityModel {
                 Intent intent = new Intent(Principal.this,DetailsOffre.class);
                 intent.putExtra("offre",gson.toJson(offreSelected));
                 startActivity(intent);
+            }
+        });
+        this.swipe_layout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipe_layout.setRefreshing(true);
+                loadData();
             }
         });
 
@@ -99,6 +114,11 @@ public class Principal extends MyActivityModel {
             }
         );
 
+        this.loadData();
+    }
+
+    private void loadData()
+    {
         new Runnable(){
             @Override
             public void run() {
