@@ -167,14 +167,6 @@ public class ListeExpeditionsAction extends HttpRequest {
                     e.printStackTrace();
                 }
             }
-            if (rExpedition.getString("dateheurelivraison") != null) {
-                try {
-                    offre.dateheurelivraison = dateFormat.parse(rExpedition.getString("dateheurelivraison"));
-                } catch (ParseException e) {
-                    offre.dateheurelivraison = new Date();
-                    e.printStackTrace();
-                }
-            }
             if (rExpedition.getString("dateheureacceptation") != null) {
                 try {
                     offre.dateheureacceptation = dateFormat.parse(rExpedition.getString("dateheureacceptation"));

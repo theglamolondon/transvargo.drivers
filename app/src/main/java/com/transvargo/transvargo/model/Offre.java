@@ -12,7 +12,6 @@ public class Offre {
     public int id;
     public String reference;
     public Date dateheureacceptation;
-    public Date dateheurelivraison;
     public Date datechargement;
     public Date dateexpiration;
     public String lieudepart;

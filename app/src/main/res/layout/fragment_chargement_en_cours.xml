@@ -9,9 +9,11 @@
     android:id="@+id/relativ_frgmnt_encours"
     tools:context="com.transvargo.transvargo.Chargements">
 
-    <TextView
-        android:id="@+id/section_label"
+    <ListView
+        android:id="@+id/fragment_liste_chargement_encours"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:divider="@null"
+        android:dividerHeight="0dp"/>
 
 </RelativeLayout>

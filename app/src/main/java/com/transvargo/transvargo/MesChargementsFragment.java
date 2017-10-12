@@ -61,43 +61,12 @@ public class MesChargementsFragment extends Fragment {
      */
     private static final String ARG_SECTION_NUMBER = "section_number";
     private ListView listView;
-    private ProgressDialog progressDialog;
     private ChargementAdapter adapter;
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
     AsyncTask task;
 
     Gson gson ;
 
-    private ResponseHandler handler = new ResponseHandler() {
-        @Override
-        public <T> void doSomething(List<T> data) {
-            ((Chargements)getActivity()).setListeChargement((ArrayList<Chargement>) data);
-            ((Chargements)getActivity()).notifyFragmentEncours();
-            fillView();
-        }
-
-        @Override
-        public void error(int httpCode, VolleyError error)
-        {
-            super.error(httpCode, error);
-
-            String json = StoreCache.getString(getActivity(), StoreCache.TRANSVARGO_MY_CHARGEMENTS);
-            //JsonArray jp = new JsonParser().parse(json).getAsJsonArray();
-
-            if(json != null && false){
-                /*Log.i("###API-Cache", jp.getAsString());
-                List<Chargement> chargements = processFromCache(jp.getAsString());
-                ((Chargements)getActivity()).setListeChargement(chargements);
-
-                fillView(); */
-                Toast.makeText(getActivity(),"Affichage à partir du cache.", Toast.LENGTH_LONG).show();
-            }else {
-                Log.e("###API-Chargement",error.getMessage());
-                Toast.makeText(getActivity(),"Impossible de se connecter au serveur. Veuillez ressayer dans un instant.", Toast.LENGTH_LONG).show();
-            }
-            progressDialog.dismiss();
-        }
-    };
 
     public MesChargementsFragment()
     {
@@ -209,14 +178,6 @@ public class MesChargementsFragment extends Fragment {
                     e.printStackTrace();
                 }
             }
-            if (rExpedition.getString("dateheurelivraison") != null) {
-                try {
-                    offre.dateheurelivraison = dateFormat.parse(rExpedition.getString("dateheurelivraison"));
-                } catch (ParseException e) {
-                    offre.dateheurelivraison = new Date();
-                    e.printStackTrace();
-                }
-            }
             if (rExpedition.getString("dateheureacceptation") != null) {
                 try {
                     offre.dateheureacceptation = dateFormat.parse(rExpedition.getString("dateheureacceptation"));
@@ -275,16 +236,7 @@ public class MesChargementsFragment extends Fragment {
             }
         });
 
-        this.progressDialog = ProgressDialog.show(getActivity(), "", "Récupération de vos chargements ...", true);
-
-        if(((Chargements) getActivity()).getListeChargement(Chargement.STATE_PROGRAMME) != null)
-        {
-            ApiTransvargo api = new ApiTransvargo(getActivity());
-            ListeExpeditionsAction liste = new ListeExpeditionsAction(handler);
-            api.executeHttpRequest(liste);
-        }else{
-            fillView();
-        }
+        this.fillView();
 
         return rootView;
     }
@@ -293,8 +245,6 @@ public class MesChargementsFragment extends Fragment {
     {
         this.adapter = new ChargementAdapter(getActivity(), ((Chargements)getActivity()).getListeChargement(Chargement.STATE_PROGRAMME) );
         this.listView.setAdapter(this.adapter);
-
-        this.progressDialog.dismiss();
         this.adapter.notifyDataSetChanged();
     }
 
@@ -327,7 +277,6 @@ public class MesChargementsFragment extends Fragment {
         @Override
         public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent)
         {
-
             if(convertView == null){
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.chargement_template, parent, false);
             }

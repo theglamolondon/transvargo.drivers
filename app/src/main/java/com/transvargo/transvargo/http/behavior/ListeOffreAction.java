@@ -93,14 +93,6 @@ public class ListeOffreAction extends HttpRequest {
                                 e.printStackTrace();
                             }
                         }
-                        if (rOffre.getString("dateheurelivraison") != null) {
-                            try {
-                                offre.dateheurelivraison = dateFormat.parse(rOffre.getString("dateheurelivraison"));
-                            } catch (ParseException e) {
-                                offre.dateheurelivraison = new Date();
-                                e.printStackTrace();
-                            }
-                        }
                         if (rOffre.getString("dateheureacceptation") != null) {
                             try {
                                 offre.dateheureacceptation = dateFormat.parse(rOffre.getString("dateheureacceptation"));

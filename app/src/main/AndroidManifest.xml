@@ -50,6 +50,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".Chargements" />
         </activity>
+        <activity android:name=".LivraisonChargement">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Chargements" />
+        </activity>
 
         <meta-data android:name="com.google.android.geo.API_KEY" android:value="@string/api_map_key"/>
         <service
