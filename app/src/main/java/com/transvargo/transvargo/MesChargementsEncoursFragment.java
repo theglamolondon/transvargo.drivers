@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,7 +62,7 @@ public class MesChargementsEncoursFragment extends Fragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                Chargement chargement = ((Chargements)getActivity()).getListeChargement(Chargement.STATE_PROGRAMME).get(position);
+                Chargement chargement = ((Chargements)getActivity()).getListeChargement(Chargement.STATE_EN_COURS).get(position);
 
                 Gson gson = new Gson();
                 Intent intent = new Intent(getActivity(),LivraisonChargement.class);
@@ -129,6 +130,7 @@ public class MesChargementsEncoursFragment extends Fragment {
                 viewHolder.txt_datechargement  = (TextView) convertView.findViewById(R.id.txt_chrgmt_datechargement);
                 viewHolder.txt_dateexpiration  = (TextView) convertView.findViewById(R.id.txt_chrgmt_dateexpiration);
                 viewHolder.section_label = (TextView) convertView.findViewById(R.id.section_label);
+                viewHolder.relativ_chgmnt_template = (RelativeLayout) convertView.findViewById(R.id.relativ_chgmnt_template);
                 /*
                 viewHolder.txt_fragile  = (TextView) convertView.findViewById(R.id.txt_chrgmt_fragile);
                 viewHolder.txt_distance  = (TextView) convertView.findViewById(R.id.txt_chrgmt_distance);
@@ -142,9 +144,9 @@ public class MesChargementsEncoursFragment extends Fragment {
 
             viewHolder.section_label.setText("Chargement en cours");
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                viewHolder.section_label.setBackgroundColor(mContext.getColor(R.color.colorAccent));
+                viewHolder.relativ_chgmnt_template.setBackgroundColor(mContext.getColor(R.color.colorAccent));
             }else{
-                viewHolder.section_label.setBackgroundColor(mContext.getResources().getColor(R.color.colorAccent));
+                viewHolder.relativ_chgmnt_template.setBackgroundColor(mContext.getResources().getColor(R.color.colorAccent));
             }
 
             viewHolder.txt_depart.setText(chargement.expedition.lieudepart);
@@ -173,6 +175,7 @@ public class MesChargementsEncoursFragment extends Fragment {
             public TextView txt_arrivee ;
             public TextView txt_dateexpiration ;
             public TextView section_label;
+            public RelativeLayout relativ_chgmnt_template;
 
             public TextView txt_fragile ;
             public TextView txt_distance ;

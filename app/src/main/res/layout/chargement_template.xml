@@ -16,6 +16,7 @@
     android:background="@drawable/liste_apparence" >
 
     <RelativeLayout
+        android:id="@+id/relativ_chgmnt_template"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimaryDark">

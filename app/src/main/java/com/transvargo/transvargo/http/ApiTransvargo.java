@@ -20,8 +20,9 @@ import org.json.JSONObject;
 public class ApiTransvargo {
 
     //private static String url = "http://www.transvargo.com/public/api/";
-    private static String url = "http://192.168.43.147:8080/transvargo/public/api/";
+    //private static String url = "http://192.168.43.147:8080/transvargo/public/api/";
     //private static String url = "http://soc-701hj12:8080/transvargo/public/api/";
+    private static String url = "http://192.168.1.24:8080/transvargo/public/api/";
     public static String LOGIN_URL = ApiTransvargo.url + "login";
     public static String LOGIN_REFRESH_TOKEN = ApiTransvargo.url + "refresh/token";
     public static String OFFRE_LISTE_URL = ApiTransvargo.url + "expeditions/offers/list";
@@ -30,7 +31,7 @@ public class ApiTransvargo {
     public static String MY_EXPEDITIONS = ApiTransvargo.url + "%s/expeditions/list"; //1er %s => id transporteur
     public static String START_EXPEDITION = ApiTransvargo.url + "%s/chargement/start"; //1er %s => id transporteur & %s => reference de l'expedition
     public static String DELIVRY_EXPEDITION = ApiTransvargo.url + "%s/chargement/delivry"; //1er %s => id transporteur
-    public static String OTP_CHECK = ApiTransvargo.url + "%s/chargement/delivry/otp-check"; //1er %s => id transporteur
+    public static String FINISH_EXPEDITION = ApiTransvargo.url + "%s/chargement/finish"; //1er %s => id transporteur
 
     private ApiTransvargo mInstance;
     private RequestQueue mRequestQueue;

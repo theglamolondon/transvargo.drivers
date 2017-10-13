@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.transvargo.transvargo.DetailsChargement">
+    tools:context="com.transvargo.transvargo.LivraisonChargement">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -35,7 +35,7 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/txt_dtls_chgmt_expediteur"
+                    android:id="@+id/txt_livr_chgmt_receptionniste"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Will Koffi"
@@ -44,7 +44,7 @@
                     android:textSize="@dimen/text_normal"/>
 
                 <TextView
-                    android:id="@+id/txt_dtls_chgmt_societe"
+                    android:id="@+id/txt_livr_chgmt_societe"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Socotaf Bouaké"
@@ -56,7 +56,7 @@
 
             <Button
                 android:paddingRight="5dp"
-                android:id="@+id/btn_dtls_chgmt_map"
+                android:id="@+id/btn_livr_chgmt_map"
                 android:layout_width="25dp"
                 android:layout_height="35dp"
                 android:layout_weight="0"
@@ -64,12 +64,12 @@
                 android:textStyle="bold"
                 android:textDirection="rtl"
                 android:layout_gravity="center"
-                android:background="@drawable/gmap_marker_active"
+                android:background="@drawable/gmap_marker"
                 />
 
             <Button
                 android:paddingRight="5dp"
-                android:id="@+id/btn_dtls_chgmt_call"
+                android:id="@+id/btn_livr_chgmt_call"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_weight="0"
@@ -122,7 +122,7 @@
                     android:layout_weight="1"/>
 
                 <TextView
-                    android:id="@+id/txt_dtls_chgmt_masse"
+                    android:id="@+id/txt_livr_chgmt_masse"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textColor="@color/colorPrimaryDark"
@@ -156,7 +156,7 @@
                     android:layout_weight="1"/>
 
                 <TextView
-                    android:id="@+id/txt_dtls_chgmt_fragile"
+                    android:id="@+id/txt_livr_chgmt_fragile"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textColor="@color/colorPrimaryDark"
@@ -190,7 +190,7 @@
                     android:layout_weight="1"/>
 
                 <TextView
-                    android:id="@+id/txt_dtls_chgmt_distance"
+                    android:id="@+id/txt_livr_chgmt_distance"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textColor="@color/colorPrimaryDark"
@@ -204,14 +204,14 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/btn_dtls_chgmt_demarrer"
+            android:id="@+id/btn_livr_chgmt_livrer"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/button"
             android:clickable="true"
             android:gravity="center"
             android:layout_marginTop="10dp"
-            android:text="démarrer le chargement"
+            android:text="Livrer"
             android:textSize="@dimen/text_h1"
             android:textStyle="bold"
             android:textColor="@color/color_white" />

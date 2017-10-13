@@ -148,13 +148,13 @@ public class DetailsChargement extends AppCompatActivity {
                 Log.e("###Trans Permission","Aucune permission de Localisation n'a été accordée");
 
                 //Activer la permission si elle n'est pas donnée
-                if (ActivityCompat.shouldShowRequestPermissionRationale(DetailsChargement.this, Manifest.permission.READ_CONTACTS))
+                if (ActivityCompat.shouldShowRequestPermissionRationale(DetailsChargement.this, Manifest.permission.ACCESS_COARSE_LOCATION))
                 {
                     map.setMyLocationEnabled(true);
 
                     MapsInitializer.initialize(DetailsChargement.this);
 
-                    String[] raw = chargement.expedition.coordarrivee.split(",");
+                    String[] raw = chargement.expedition.coorddepart.split(",");
                     CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(Float.parseFloat(raw[0]), Float.parseFloat(raw[1])), 10);
 
                     map.animateCamera(cameraUpdate);
@@ -165,7 +165,7 @@ public class DetailsChargement extends AppCompatActivity {
 
                 MapsInitializer.initialize(DetailsChargement.this);
 
-                String[] raw = chargement.expedition.coordarrivee.split(",");
+                String[] raw = chargement.expedition.coorddepart.split(",");
                 CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(Float.parseFloat(raw[0]), Float.parseFloat(raw[1])), 10);
 
                 map.animateCamera(cameraUpdate);
