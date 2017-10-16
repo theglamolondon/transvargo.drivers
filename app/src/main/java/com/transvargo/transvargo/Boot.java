@@ -4,7 +4,9 @@ import android.app.Application;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.Volley;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.transvargo.transvargo.http.ApiTransvargo;
 import com.transvargo.transvargo.http.ResponseHandler;
@@ -40,7 +42,7 @@ public class Boot extends Application {
         @Override
         public void error(int httpCode, VolleyError error) {
             if(httpCode == 500){
-                Toast.makeText(Boot.this, "Une erreur de connexion au serveeur eest survenue.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(Boot.this, "Une erreur de connexion au serveur eest survenue.", Toast.LENGTH_SHORT).show();
             }else if(httpCode == 403)
             {
                 String response = new String(error.networkResponse.data, StandardCharsets.UTF_8);
@@ -74,7 +76,6 @@ public class Boot extends Application {
     }
 
     private boolean refreshJWToken(){
-
         ApiTransvargo api = new ApiTransvargo(this);
         RefreshTokenAction refresh = new RefreshTokenAction(this.handler);
         api.executeHttpRequest(refresh);

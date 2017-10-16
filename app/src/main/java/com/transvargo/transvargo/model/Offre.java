@@ -19,7 +19,7 @@ public class Offre {
     public String lieuarrivee;
     public String coordarrivee;
     public double masse;
-    public String statut;
+    public int statut;
     public Boolean fragile;
     public int prix;
     public int distance;

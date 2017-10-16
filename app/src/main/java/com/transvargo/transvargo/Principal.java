@@ -16,7 +16,12 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.transvargo.transvargo.http.ApiTransvargo;
 import com.transvargo.transvargo.http.ResponseHandler;
@@ -27,18 +32,18 @@ import com.transvargo.transvargo.processing.ListeProcessing;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 public class Principal extends MyActivityModel {
 
     String liste_save_bundle = "liste_offre";
     List<Offre> listeOffre = null;
     Gson gson = new Gson();
-
     RelativeLayout rWait;
 
     ListView lwListeOffres  = null;
     SwipeRefreshLayout swipe_layout  = null;
-    ResponseHandler handle = new ResponseHandler() {
+    ResponseHandler handler = new ResponseHandler() {
         @Override
         public <T extends Object> void doSomething(List<T> data) {
 
@@ -52,7 +57,7 @@ public class Principal extends MyActivityModel {
         public void error(int httpCode, VolleyError error) {
             ProgressBar progress = (ProgressBar) findViewById(R.id.progressbar);
             progress.setVisibility(View.INVISIBLE);
-
+            error.printStackTrace();
             TextView txterror = (TextView) findViewById(R.id.txt_error);
             txterror.setText("Impossible de se connecter à internet." + "\n\r" + "Glisser vers le bas pour actualiser");
 
@@ -63,6 +68,7 @@ public class Principal extends MyActivityModel {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_principal);
 
         this.rWait = (RelativeLayout) findViewById(R.id.rWait);
@@ -74,7 +80,6 @@ public class Principal extends MyActivityModel {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Offre offreSelected = listeOffre.get(position);
-
                 Intent intent = new Intent(Principal.this,DetailsOffre.class);
                 intent.putExtra("offre",gson.toJson(offreSelected));
                 startActivity(intent);
@@ -119,17 +124,9 @@ public class Principal extends MyActivityModel {
 
     private void loadData()
     {
-        new Runnable(){
-            @Override
-            public void run() {
-
-                ApiTransvargo api = new ApiTransvargo(getBaseContext());
-                ListeOffreAction liste = new ListeOffreAction(handle);
-
-                api.executeHttpRequest(liste);
-
-            }
-        }.run();
+        ApiTransvargo api = new ApiTransvargo(this.getApplicationContext());
+        ListeOffreAction liste = new ListeOffreAction(handler);
+        api.executeHttpRequest(liste);
     }
 
     private void fillListe(List<Offre> offres)
@@ -156,7 +153,6 @@ public class Principal extends MyActivityModel {
         {
             outState.putString(this.liste_save_bundle,this.gson.toJson(this.listeOffre.toArray()));
         }
-
     }
 
     @Override

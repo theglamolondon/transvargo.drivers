@@ -2,6 +2,7 @@ package com.transvargo.transvargo;
 
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,15 +15,21 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.Volley;
 import com.google.gson.Gson;
 import com.transvargo.transvargo.http.ApiTransvargo;
 import com.transvargo.transvargo.http.ResponseHandler;
 import com.transvargo.transvargo.http.behavior.ListeOffreAction;
 import com.transvargo.transvargo.http.behavior.ReservationAction;
 import com.transvargo.transvargo.http.behavior.VehiculeListAction;
+import com.transvargo.transvargo.model.Chargement;
 import com.transvargo.transvargo.model.Offre;
 import com.transvargo.transvargo.model.Vehicule;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -64,13 +71,22 @@ public class Reservation extends MyActivityModel {
         @Override
         public void doSomething(Object data) {
             super.doSomething(data);
+
+            JSONObject json = (JSONObject) data;
+
+            try {
+                Toast.makeText(Reservation.this, json.getString("message"), Toast.LENGTH_LONG).show();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+            goToMesChargements();
         }
 
         @Override
         public void error(int httpCode, VolleyError error) {
 
             progressDialog.dismiss();
-
             Toast.makeText(Reservation.this,"Impossible de se connecter à internet",Toast.LENGTH_SHORT).show();
         }
     };
@@ -78,6 +94,7 @@ public class Reservation extends MyActivityModel {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_reservation);
 
         this.txt_reserv_typecamion = (TextView) findViewById(R.id.txt_reserv_typecamion);
@@ -105,17 +122,9 @@ public class Reservation extends MyActivityModel {
             @Override
             public void onClick(View v) {
                 showDialog("Traitement en cours. Veuillez patienter SVP ...");
-                new Runnable() {
-                    @Override
-                    public void run() {
-                        ApiTransvargo api = new ApiTransvargo(Reservation.this);
-                        ReservationAction reservation = new ReservationAction(offre.reference, immatriculation, reservationHandler);
-                        api.executeHttpRequest(reservation);
-
-                        goToMesChargements();
-
-                    }
-                }.run();
+                ApiTransvargo api = new ApiTransvargo(Reservation.this);
+                ReservationAction reservation = new ReservationAction(offre.reference, immatriculation, reservationHandler);
+                api.executeHttpRequest(reservation);
             }
         });
 
@@ -130,24 +139,19 @@ public class Reservation extends MyActivityModel {
 
     private void goToMesChargements()
     {
+        progressDialog.dismiss();
+        Intent intent = new Intent(Reservation.this, Chargements.class);
+        startActivity(intent);
         Log.w("###Trans-API", "Mes chargements");
+        finish();
     }
 
     private void getRemoteListVehicle()
     {
         this.showDialog("Récupération de la liste de vos véhicules. Veuillez patienter SVP ...");
-        new Runnable(){
-            @Override
-            public void run() {
-
-                ApiTransvargo api = new ApiTransvargo(getBaseContext());
-                VehiculeListAction liste = new VehiculeListAction(offre, handler);
-
-                api.executeHttpRequest(liste);
-
-            }
-        }.run();
-
+        ApiTransvargo api = new ApiTransvargo(this.getApplicationContext());
+        VehiculeListAction liste = new VehiculeListAction(offre, handler);
+        api.executeHttpRequest(liste);
     }
 
     private void fillView()

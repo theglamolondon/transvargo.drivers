@@ -1,6 +1,7 @@
 package com.transvargo.transvargo.http.behavior;
 
 import android.content.Context;
+import android.support.annotation.UiThread;
 import android.util.Log;
 
 import com.android.volley.AuthFailureError;
@@ -33,6 +34,7 @@ public class ReservationAction extends HttpRequest {
     public ReservationAction(String reference, String immatriculation, ResponseHandler handler){
         this.immatriculation = immatriculation;
         this.reference = reference;
+        this.handler = handler;
     }
 
     @Override
@@ -61,8 +63,8 @@ public class ReservationAction extends HttpRequest {
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                VolleyError error1 = error;
-                handler.error(error.networkResponse.statusCode, error1);
+                error.printStackTrace();
+                handler.error(error.networkResponse != null ? error.networkResponse.statusCode : 0, error);
             }
         }){
             @Override

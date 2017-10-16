@@ -8,8 +8,8 @@ import java.util.Date;
 
 public class Chargement
 {
-    public static String STATE_EN_COURS = "252";
-    public static String STATE_PROGRAMME = "242";
+    public static int STATE_EN_COURS = 252;
+    public static int STATE_PROGRAMME = 242;
 
     public int id;
     public Date dateheurechargement;

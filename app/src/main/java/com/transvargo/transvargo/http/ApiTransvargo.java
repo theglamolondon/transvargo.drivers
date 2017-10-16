@@ -19,10 +19,10 @@ import org.json.JSONObject;
 
 public class ApiTransvargo {
 
-    //private static String url = "http://www.transvargo.com/public/api/";
+    private static String url = "http://www.transvargo.com/public/api/";
     //private static String url = "http://192.168.43.147:8080/transvargo/public/api/";
     //private static String url = "http://soc-701hj12:8080/transvargo/public/api/";
-    private static String url = "http://192.168.1.24:8080/transvargo/public/api/";
+    //private static String url = "http://192.168.1.24:8080/transvargo/public/api/";
     public static String LOGIN_URL = ApiTransvargo.url + "login";
     public static String LOGIN_REFRESH_TOKEN = ApiTransvargo.url + "refresh/token";
     public static String OFFRE_LISTE_URL = ApiTransvargo.url + "expeditions/offers/list";
@@ -45,7 +45,7 @@ public class ApiTransvargo {
 
     private RequestQueue getRequestQueue(){
         if(mRequestQueue == null)
-            mRequestQueue = Volley.newRequestQueue(mContext);
+            mRequestQueue = Volley.newRequestQueue(mContext.getApplicationContext());
 
         return mRequestQueue;
     }
@@ -63,7 +63,6 @@ public class ApiTransvargo {
             _rO.setRetryPolicy(new DefaultRetryPolicy(120000, DefaultRetryPolicy.DEFAULT_MAX_RETRIES, DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
             getRequestQueue().add(_rO);
         }
-
-        getRequestQueue().start();
+        //getRequestQueue().start();  //Fais planter le processus avant son achèvement
     }
 }

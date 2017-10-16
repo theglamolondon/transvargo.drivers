@@ -18,7 +18,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -42,7 +44,6 @@ import org.json.JSONObject;
  */
 
 public class LivraisonChargement extends MyActivityModel {
-
     MapView mapView;
     GoogleMap map;
     Chargement chargement;
@@ -138,14 +139,10 @@ public class LivraisonChargement extends MyActivityModel {
                 @Override
                 public void onClick(View v) {
                     progressDialog = ProgressDialog.show(LivraisonChargement.this,"","Validation de la livraison en cours ...",true);
-                    new Runnable() {
-                        @Override
-                        public void run() {
-                            ApiTransvargo api = new ApiTransvargo(LivraisonChargement.this);
-                            DelivryChargement delivry = new DelivryChargement(chargement, responseHandler);
-                            api.executeHttpRequest(delivry);
-                        }
-                    }.run();
+
+                    ApiTransvargo api = new ApiTransvargo(LivraisonChargement.this);
+                    DelivryChargement delivry = new DelivryChargement(chargement, responseHandler);
+                    api.executeHttpRequest(delivry);
                 }
             });
 
@@ -219,34 +216,30 @@ public class LivraisonChargement extends MyActivityModel {
     private void validateDelivry(){
         if(txt_otp.getText().toString().equals(OTP)){
             progressDialog = ProgressDialog.show(LivraisonChargement.this,"","Vérification du code ...",true);
-            new Runnable() {
-                @Override
-                public void run() {
-                    ApiTransvargo api = new ApiTransvargo(LivraisonChargement.this);
-                    FinishChargement finish = new FinishChargement(chargement, new ResponseHandler() {
-                        @Override
-                        public void doSomething(Object data) {
-                            JSONObject objet = (JSONObject) data;
-                            try {
-                                OTP = objet.getString("otp");
-                                Toast.makeText(LivraisonChargement.this,objet.getString("message"),Toast.LENGTH_SHORT).show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                            progressDialog.dismiss();
-                            startActivity(new Intent(LivraisonChargement.this, Chargements.class));
-                            finish();
-                        }
 
-                        @Override
-                        public void error(int httpCode, VolleyError error) {
-                            Toast.makeText(LivraisonChargement.this,"Impossible de se connecter à internet",Toast.LENGTH_SHORT).show();
-                            progressDialog.dismiss();
-                        }
-                    });
-                    api.executeHttpRequest(finish);
+            ApiTransvargo api = new ApiTransvargo(LivraisonChargement.this.getApplicationContext());
+            FinishChargement finish = new FinishChargement(chargement, new ResponseHandler() {
+                @Override
+                public void doSomething(Object data) {
+                    JSONObject objet = (JSONObject) data;
+                    try {
+                        OTP = objet.getString("otp");
+                        Toast.makeText(LivraisonChargement.this,objet.getString("message"),Toast.LENGTH_SHORT).show();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    progressDialog.dismiss();
+                    startActivity(new Intent(LivraisonChargement.this, Chargements.class));
+                    finish();
                 }
-            }.run();
+
+                @Override
+                public void error(int httpCode, VolleyError error) {
+                    Toast.makeText(LivraisonChargement.this,"Impossible de se connecter à internet",Toast.LENGTH_SHORT).show();
+                    progressDialog.dismiss();
+                }
+            });
+            api.executeHttpRequest(finish);
         }else{
             Toast.makeText(LivraisonChargement.this,"Le code de validation n'est pas correcte. Veuillez réessayer SVP",Toast.LENGTH_LONG).show();
         }

@@ -72,13 +72,7 @@ public class LoginAction extends HttpRequest
                             JSONObject jTransporteur = jIdentite.getJSONObject("transporteur");
                             String jwt = response.getString("token");
 
-                            Identite identite = new Identite();
-                            identite.email = jIdentite.getString("email");
-                            identite.id = jIdentite.getInt("typeidentite_id");
-                            identite.statut = jIdentite.getInt("statut");
-
                             Transporteur transporteur = new Transporteur();
-                            transporteur.identite = identite;
                             transporteur.jwt = jwt;
                             transporteur.nom = jTransporteur.getString("nom");
                             transporteur.prenoms = jTransporteur.getString("prenoms");
@@ -91,6 +85,13 @@ public class LoginAction extends HttpRequest
                             transporteur.lieunaissance = jTransporteur.getString("lieunaissance");
                             transporteur.rib = jTransporteur.getString("rib");
                             transporteur.datecreation = jTransporteur.getString("datecreation");
+
+                            Identite identite = new Identite();
+                            identite.email = jIdentite.getString("email");
+                            identite.id = jTransporteur.getInt("identiteaccess_id");
+                            identite.statut = jIdentite.getInt("statut");
+
+                            transporteur.identite = identite;
 
                             StoreCache.store(context,StoreCache.TRANSVARGO_TRANSPORTEUR,transporteur);
 

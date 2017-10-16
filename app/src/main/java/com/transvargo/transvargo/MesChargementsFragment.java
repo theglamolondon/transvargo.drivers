@@ -63,13 +63,15 @@ public class MesChargementsFragment extends Fragment {
     private ListView listView;
     private ChargementAdapter adapter;
     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    AsyncTask task;
 
     Gson gson ;
+
+    int cpt;
 
 
     public MesChargementsFragment()
     {
+        cpt = 0;
         this.gson = new GsonBuilder().disableHtmlEscaping().create();
     }
 
@@ -200,7 +202,7 @@ public class MesChargementsFragment extends Fragment {
             offre.distance = rExpedition.getInt("distance");
             offre.lieudepart = rExpedition.getString("lieudepart");
             offre.lieuarrivee = rExpedition.getString("lieuarrivee");
-            offre.statut = rExpedition.getString("statut");
+            offre.statut = rExpedition.getInt("statut");
 
             //Client
             JSONObject rClient = rExpedition.getJSONObject("client");
@@ -222,6 +224,7 @@ public class MesChargementsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
+        cpt++;
         View rootView = inflater.inflate(R.layout.fragment_chargement, container, false);
         this.listView = (ListView) rootView.findViewById(R.id.fragment_liste_chargement);
         this.listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -236,6 +239,7 @@ public class MesChargementsFragment extends Fragment {
             }
         });
 
+        Log.i("##Instance","Instance MesChargementFragment() "+cpt);
         this.fillView();
 
         return rootView;
@@ -280,7 +284,6 @@ public class MesChargementsFragment extends Fragment {
             if(convertView == null){
                 convertView = LayoutInflater.from(getContext()).inflate(R.layout.chargement_template, parent, false);
             }
-
             ChargmentViewHolder viewHolder = (ChargmentViewHolder) convertView.getTag();
 
             if(viewHolder == null){
@@ -297,7 +300,7 @@ public class MesChargementsFragment extends Fragment {
                 convertView.setTag(viewHolder);
             }
 
-            Chargement chargement = (Chargement)getItem(position);
+            Chargement chargement = getItem(position);
             SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
 
             viewHolder.txt_depart.setText(chargement.expedition.lieudepart);

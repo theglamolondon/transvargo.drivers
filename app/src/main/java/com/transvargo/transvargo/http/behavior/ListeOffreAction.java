@@ -113,7 +113,7 @@ public class ListeOffreAction extends HttpRequest {
                         offre.distance = rOffre.getInt("distance");
                         offre.lieudepart = rOffre.getString("lieudepart");
                         offre.lieuarrivee = rOffre.getString("lieuarrivee");
-                        offre.statut = rOffre.getString("statut");
+                        offre.statut = rOffre.getInt("statut");
 
                         //Client
                         JSONObject rClient = rOffre.getJSONObject("client");
@@ -178,12 +178,9 @@ public class ListeOffreAction extends HttpRequest {
         }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
-
                 HashMap<String, String> headers = new HashMap<>();
-
                 headers.put("Authorization", "Bearer " + transporteur.jwt);
                 headers.put("x-app-navigateur", "app-android-transvargo");
-
                 return headers;
             }
         };

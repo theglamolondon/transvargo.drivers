@@ -14,7 +14,9 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -71,6 +73,7 @@ public class DetailsChargement extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_details_chargement);
         this.progressDialog = new ProgressDialog(this);
         this.mapView = (MapView) findViewById(R.id.mapView);
@@ -123,14 +126,9 @@ public class DetailsChargement extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     progressDialog = ProgressDialog.show(DetailsChargement.this,"","Démarrage du chargement en cours...",true);
-                    new Runnable() {
-                        @Override
-                        public void run() {
-                            ApiTransvargo api = new ApiTransvargo(DetailsChargement.this);
-                            StartChargement start = new StartChargement(chargement, responseHandler);
-                            api.executeHttpRequest(start);
-                        }
-                    }.run();
+                    ApiTransvargo api = new ApiTransvargo(DetailsChargement.this);
+                    StartChargement start = new StartChargement(chargement, responseHandler);
+                    api.executeHttpRequest(start);
                 }
             });
         }

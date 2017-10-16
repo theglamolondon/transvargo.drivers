@@ -100,7 +100,7 @@ public class ListeExpeditionsAction extends HttpRequest {
                     try {
                         chargement.dateheurechargement = dateFormat.parse(rChargement.getString("dateheurechargement"));
                     } catch (ParseException e) {
-                                chargement.dateheurechargement = new Date();
+                        chargement.dateheurechargement = new Date();
                         e.printStackTrace();
                     }
                 }else {
@@ -189,7 +189,7 @@ public class ListeExpeditionsAction extends HttpRequest {
             offre.distance = rExpedition.getInt("distance");
             offre.lieudepart = rExpedition.getString("lieudepart");
             offre.lieuarrivee = rExpedition.getString("lieuarrivee");
-            offre.statut = rExpedition.getString("statut");
+            offre.statut = rExpedition.getInt("statut");
 
             //Client
             JSONObject rClient = rExpedition.getJSONObject("client");

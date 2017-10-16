@@ -23,7 +23,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.Volley;
 import com.transvargo.transvargo.http.ApiTransvargo;
 import com.transvargo.transvargo.http.ResponseHandler;
 import com.transvargo.transvargo.http.behavior.ListeExpeditionsAction;
@@ -36,7 +38,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Chargements extends MyActivityModel {
-
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
@@ -89,6 +90,7 @@ public class Chargements extends MyActivityModel {
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_chargement);
 
         TabLayout tab = (TabLayout) findViewById(R.id.tabs);
@@ -104,20 +106,18 @@ public class Chargements extends MyActivityModel {
         mViewPager.setAdapter(mSectionsPagerAdapter);
 
         tab.setupWithViewPager(mViewPager);
-
         this.loadData();
     }
 
     public void loadData()
     {
         this.progressDialog = ProgressDialog.show(this, "", "Récupération de vos chargements ...", true);
-
         new Runnable(){
             @Override
             public void run() {
                 if(getListeChargement(Chargement.STATE_PROGRAMME) != null)
                 {
-                    ApiTransvargo api = new ApiTransvargo(getBaseContext());
+                    ApiTransvargo api = new ApiTransvargo(Chargements.this.getApplicationContext());
                     ListeExpeditionsAction liste = new ListeExpeditionsAction(handler);
                     api.executeHttpRequest(liste);
                 }else{
@@ -150,27 +150,27 @@ public class Chargements extends MyActivityModel {
         this.progressDialog.dismiss();
     }
 
-    public List<Chargement> getListeChargement(String statut)
+    public List<Chargement> getListeChargement(int statut)
     {
         List<Chargement> liste = new ArrayList<>();
-        for( Chargement chargement: this.chargements ) {
-
-            if( chargement.expedition.statut.equals(statut) ){
+        for( Chargement chargement: this.chargements )
+        {
+            Log.e("###Liste","Statut actuel :"+chargement.expedition.statut+" | Statut recherché :"+statut);
+            if( chargement.expedition.statut == statut )
+            {
+                Log.e("###Liste","Chargement ajouté");
                 liste.add(chargement);
             }
         }
-        return liste;
+        Log.e("###Liste",liste.toString());
+        //return liste;
+        return this.chargements;
     }
 
     public void setListeChargement(List<Chargement> liste)
     {
         this.chargements = liste;
-        Log.e("###Liste-Chargement",liste.toString());
-
-        //MesChargementsEncoursFragment fragment = (MesChargementsEncoursFragment) this.mSectionsPagerAdapter.getItem(1);
-
-        notifyFragmentMesChargements();
-        notifyFragmentEncours();
+        Log.e("###Liste-Chargement",liste.size()+" élément(s)");
     }
 
 
@@ -181,6 +181,7 @@ public class Chargements extends MyActivityModel {
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         public final List<Fragment> mFragmentList = new ArrayList<>();
+        private String[] titles = {"Programmés", "En cours"};
 
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
@@ -190,8 +191,6 @@ public class Chargements extends MyActivityModel {
 
         @Override
         public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
             return mFragmentList.get(position);
         }
 
@@ -202,13 +201,7 @@ public class Chargements extends MyActivityModel {
 
         @Override
         public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return "Programmés";
-                case 1:
-                    return "En cours";
-            }
-            return null;
+            return titles[position];
         }
     }
 }

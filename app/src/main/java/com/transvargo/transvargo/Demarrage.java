@@ -46,7 +46,7 @@ public class Demarrage extends AppCompatActivity {
                     if(transporteur != null)
                     {
                         Log.i("#Trans-API#","Check user connected");
-                        Log.i("#Trans-API#",transporteur.nom + " "+ transporteur.prenoms);
+                        Log.i("#Trans-API#",transporteur.identite.id + " "+transporteur.nom + " "+ transporteur.prenoms);
 
                         Intent intent = new Intent(Demarrage.this, Principal.class);
                         startActivity(intent);
