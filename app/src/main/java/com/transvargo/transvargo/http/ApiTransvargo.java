@@ -24,6 +24,7 @@ public class ApiTransvargo {
     //private static String url = "http://soc-701hj12:8080/transvargo/public/api/";
     //private static String url = "http://192.168.1.24:8080/transvargo/public/api/";
     public static String LOGIN_URL = ApiTransvargo.url + "login";
+    public static String LOGIN_CHAUFFEUR_URL = ApiTransvargo.url + "login/chauffeur";
     public static String LOGIN_REFRESH_TOKEN = ApiTransvargo.url + "refresh/token";
     public static String OFFRE_LISTE_URL = ApiTransvargo.url + "expeditions/offers/list";
     public static String VEHICULE_LISTE_URL = ApiTransvargo.url + "expeditions/transporteur/%s/vehicule/%s/list"; //1er %s => id transporteur & 2ème %s => categorie du véhicule
@@ -33,7 +34,7 @@ public class ApiTransvargo {
     public static String DELIVRY_EXPEDITION = ApiTransvargo.url + "%s/chargement/delivry"; //1er %s => id transporteur
     public static String FINISH_EXPEDITION = ApiTransvargo.url + "%s/chargement/finish"; //1er %s => id transporteur
     public static String LOCATION_GPS = ApiTransvargo.url + "gps/location/store";
-    public static String FIREBASE_REFRESH_TOKEN = ApiTransvargo.url + "token/refresh";
+    public static String FIREBASE_REFRESH_TOKEN = ApiTransvargo.url + "firebase/token/refresh";
 
     private ApiTransvargo mInstance;
     private RequestQueue mRequestQueue;

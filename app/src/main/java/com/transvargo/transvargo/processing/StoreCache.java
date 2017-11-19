@@ -13,6 +13,7 @@ public class StoreCache {
 
     private static String TRANVARGO_CACHE = "transvargocache";
     public static String TRANSVARGO_TRANSPORTEUR = "transporteur";
+    public static String TRANSVARGO_CHAUFFEUR = "chauffeur";
     public static String TRANSVARGO_MY_CHARGEMENTS = "meschargements";
 
     public static <T> boolean store(Context context, String key, T model)

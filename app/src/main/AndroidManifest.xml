@@ -31,6 +31,10 @@
             android:label="@string/title_activity_login"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".LoginChauffeur"
+            android:label="@string/title_activity_login"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".DetailsOffre"
             android:label="@string/title_activity_details_offre" />
         <activity

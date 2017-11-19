@@ -1,4 +1,5 @@
 <resources>
+    <string name="app_version">1.0.7</string>
     <string name="app_name">Transvargo</string>
     <string name="app_spec">Drivers</string>
     <string name="app_full_name">Transvargo Drivers</string>
@@ -16,6 +17,11 @@
     <string name="login_email">Email ou n° téléphone</string>
     <string name="login_password">Mot de passe</string>
     <string name="login_btn_connexion">Connexion</string>
+    <string name="login_btn_switch_mode_chauffeur">Vous êtes un chauffeur ?</string>
+    <string name="login_btn_switch_mode_proprietaire">Vous êtes un propriétaire ?</string>
+    <string name="login_chauffeur_connexion">Connexion chauffeur</string>
+    <string name="login_chauffeur_login">Immatriculation</string>
+    <string name="login_chauffeur_password">Téléphone</string>
 
     <string name="menu_profil">Mon profil</string>
     <string name="menu_deconnexion">Déconnexion</string>

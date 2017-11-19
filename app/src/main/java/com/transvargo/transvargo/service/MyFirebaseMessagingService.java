@@ -12,8 +12,11 @@ import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.transvargo.transvargo.Boot;
+import com.transvargo.transvargo.Chargements;
 import com.transvargo.transvargo.Principal;
 import com.transvargo.transvargo.R;
+import com.transvargo.transvargo.model.Transporteur;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -35,7 +38,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             long[] pattern = {500,500,500,500,500,500,500,500,500};
 
-            Intent listeIntent = new Intent(this, Principal.class);
+            Intent listeIntent = null;
+            if(Boot.getTransporteurConnecte().typetransporteur_id != Transporteur.CHAUFFEUR_FLOTTE)
+            {
+                listeIntent = new Intent(this, Principal.class);
+            }else{ //Mode chauffeur activé
+                listeIntent = new Intent(this, Chargements.class);
+            }
+
             PendingIntent pendingIntent = PendingIntent.getActivity(this, 555, listeIntent, 0);
 
             NotificationCompat.BigTextStyle bigTextStyle = new NotificationCompat.BigTextStyle();

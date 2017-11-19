@@ -1,10 +1,12 @@
 package com.transvargo.transvargo;
 
+import android.content.DialogInterface;
 import android.support.v4.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -32,6 +34,7 @@ import com.transvargo.transvargo.http.behavior.ListeExpeditionsAction;
 import com.transvargo.transvargo.http.behavior.ListeOffreAction;
 import com.transvargo.transvargo.model.Chargement;
 import com.transvargo.transvargo.model.Offre;
+import com.transvargo.transvargo.model.Transporteur;
 import com.transvargo.transvargo.processing.StoreCache;
 
 import java.util.ArrayList;
@@ -172,6 +175,31 @@ public class Chargements extends MyActivityModel {
         Log.e("###Liste-Chargement",liste.size()+" élément(s)");
     }
 
+    public void onBackPressed()
+    {
+        if(Boot.getTransporteurConnecte().typetransporteur_id == Transporteur.CHAUFFEUR_FLOTTE)
+        {
+            Log.e("#Trans-API#","back button pressed");
+
+            AlertDialog.Builder builder = new AlertDialog.Builder(Chargements.this);
+            builder.setMessage("Êtes-vous sur de vouloir quitter l'application ?");
+            builder.setCancelable(false);
+
+            builder.setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    System.exit(0);
+                }
+            });
+
+            builder.setNegativeButton("Non", new DialogInterface.OnClickListener() {
+                public void onClick(final DialogInterface dialog, final int id) {
+                    dialog.cancel();
+                }
+            });
+
+            builder.show();
+        }
+    }
 
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to

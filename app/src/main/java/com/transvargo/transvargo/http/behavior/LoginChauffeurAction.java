@@ -1,7 +1,6 @@
 package com.transvargo.transvargo.http.behavior;
 
 import android.content.Context;
-import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -10,10 +9,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.JsonRequest;
-import com.google.gson.JsonObject;
 import com.transvargo.transvargo.Boot;
-import com.transvargo.transvargo.Principal;
 import com.transvargo.transvargo.http.ApiTransvargo;
 import com.transvargo.transvargo.http.ResponseHandler;
 import com.transvargo.transvargo.model.Identite;
@@ -21,12 +17,10 @@ import com.transvargo.transvargo.model.Transporteur;
 import com.transvargo.transvargo.model.TypeCamion;
 import com.transvargo.transvargo.model.Vehicule;
 import com.transvargo.transvargo.processing.StoreCache;
-import com.transvargo.transvargo.service.Tracking;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,17 +28,17 @@ import java.util.Map;
  * Created by BW.KOFFI on 10/08/2017.
  */
 
-public class LoginAction extends HttpRequest
+public class LoginChauffeurAction extends HttpRequest
 {
-    public ResponseHandler action;
+    private ResponseHandler action;
+    private String immatriculation;
+    private String telephone;
 
-    private String email;
-    private String password;
-
-    public LoginAction(String mEmail, String mPwd)
+    public LoginChauffeurAction(ResponseHandler action, String mImmatriculation, String mTelephone)
     {
-        this.email = mEmail;
-        this.password = mPwd;
+        this.action = action;
+        this.immatriculation = mImmatriculation;
+        this.telephone = mTelephone;
     }
 
     @Override
@@ -54,42 +48,40 @@ public class LoginAction extends HttpRequest
 
     private JsonObjectRequest makeRequest(final Context context)
     {
-        Log.w("#Trans-API#","begin request : "+ApiTransvargo.LOGIN_URL);
+        Log.w("#Trans-API#","begin request : "+ApiTransvargo.LOGIN_CHAUFFEUR_URL);
 
         JSONObject params  = new JSONObject();
         try {
-            params.put("email",email);
-            params.put("password",password);
+            params.put("immatriculation",immatriculation);
+            params.put("telephone",telephone);
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        return new JsonObjectRequest(Request.Method.POST, ApiTransvargo.LOGIN_URL, params,
+        return new JsonObjectRequest(Request.Method.POST, ApiTransvargo.LOGIN_CHAUFFEUR_URL, params,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.i("#Trans-API#",response.toString());
+                        Vehicule vehicule = null;
 
                         try {
-                            JSONObject jIdentite = response.getJSONObject("data");
-                            JSONObject jTransporteur = jIdentite.getJSONObject("transporteur");
+                            JSONObject jVehicule = response.getJSONObject("vehicule");
                             String jwt = response.getString("token");
 
-                            Vehicule vehicule = null;
+                            //Véhicule du chauffeur
+                            jVehicule = response.getJSONObject("vehicule");
+                            vehicule = new Vehicule();
+                            vehicule.id = jVehicule.getInt("id");
+                            vehicule.immatriculation = jVehicule.getString("immatriculation");
+                            vehicule.chauffeur = jVehicule.getString("chauffeur");
+                            vehicule.telephone = jVehicule.getString("telephone");
+                            vehicule.capacite = ((float) jVehicule.getDouble("capacite"));
+                            vehicule.typeCamion = new TypeCamion();
+                            vehicule.typeCamion.id = jVehicule.getInt("typecamion_id");
 
-                            try{
-                                JSONObject jVehicule = response.getJSONObject("vehicule");
-                                vehicule = new Vehicule();
-                                vehicule.immatriculation = jVehicule.getString("immatriculation");
-                                vehicule.id = jVehicule.getInt("id");
-                                vehicule.chauffeur = jVehicule.getString("chauffeur");
-                                vehicule.telephone = jVehicule.getString("telephone");
-                                vehicule.typeCamion = new TypeCamion();
-                                vehicule.typeCamion.id = jVehicule.getInt("typecamion_id");
-                            }catch (JSONException e){
-                                e.printStackTrace();
-                            }
-
+                            //Le transporteur
+                            JSONObject jTransporteur = jVehicule.getJSONObject("transporteur");
                             Transporteur transporteur = new Transporteur();
                             transporteur.jwt = jwt;
                             transporteur.nom = jTransporteur.getString("nom");
@@ -103,8 +95,10 @@ public class LoginAction extends HttpRequest
                             transporteur.lieunaissance = jTransporteur.getString("lieunaissance");
                             transporteur.rib = jTransporteur.getString("rib");
                             transporteur.datecreation = jTransporteur.getString("datecreation");
-                            transporteur.typetransporteur_id = jTransporteur.getInt("typetransporteur_id");
+                            transporteur.typetransporteur_id = Transporteur.CHAUFFEUR_FLOTTE;
 
+
+                            JSONObject jIdentite = jTransporteur.getJSONObject("identite_access");
                             Identite identite = new Identite();
                             identite.email = jIdentite.getString("email");
                             identite.id = jTransporteur.getInt("identiteaccess_id");
@@ -114,18 +108,15 @@ public class LoginAction extends HttpRequest
                             transporteur.vehicule = vehicule;
 
                             StoreCache.store(context,StoreCache.TRANSVARGO_TRANSPORTEUR,transporteur);
-
-                            Toast.makeText(context,"Connexion réussie",Toast.LENGTH_SHORT).show();
-
                             Boot.setTransporteur(transporteur);
+
+                            Toast.makeText(context,"Bienvenue "+ vehicule.chauffeur + " !",Toast.LENGTH_SHORT).show();
 
                             action.doSomething(null);
 
                         } catch (JSONException e) {
                             e.printStackTrace();
-                            //action.error(500, null);
                         }
-
                     }
                 }, new Response.ErrorListener() {
                     @Override

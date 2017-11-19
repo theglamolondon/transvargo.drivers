@@ -178,7 +178,7 @@ public class Principal extends MyActivityModel {
 
         builder.setPositiveButton("Oui", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                finish();
+                System.exit(0);
             }
         });
 

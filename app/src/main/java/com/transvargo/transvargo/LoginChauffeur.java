@@ -1,29 +1,28 @@
 package com.transvargo.transvargo;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.Volley;
 import com.transvargo.transvargo.http.ApiTransvargo;
 import com.transvargo.transvargo.http.ResponseHandler;
 import com.transvargo.transvargo.http.behavior.LoginAction;
+import com.transvargo.transvargo.http.behavior.LoginChauffeurAction;
+import com.transvargo.transvargo.model.Transporteur;
 import com.transvargo.transvargo.service.Tracking;
 
 import java.util.List;
 
-public class Login extends AppCompatActivity {
+public class LoginChauffeur extends AppCompatActivity {
     EditText txtlogin;
     EditText txtpassword;
     Button btnconnexion;
@@ -34,7 +33,7 @@ public class Login extends AppCompatActivity {
         @Override
         public void doSomething(Object liste) {
             Log.e("##TESTS##","execute login");
-            Intent openApp = new Intent(Login.this,Principal.class);
+            Intent openApp = new Intent(LoginChauffeur.this,Chargements.class);
             startActivity(openApp);
 
             if(progressDialog != null){
@@ -45,11 +44,11 @@ public class Login extends AppCompatActivity {
         @Override
         public <T> void doSomething(List<T> data) {
             Log.e("##TESTS##","execute login");
-            Intent openApp = new Intent(Login.this,Principal.class);
+            Intent openApp = new Intent(LoginChauffeur.this,Chargements.class);
             startActivity(openApp);
 
             //Démarrage du service de géolocalisation
-            startService(new Intent(Login.this, Tracking.class));
+            startService(new Intent(LoginChauffeur.this, Tracking.class));
 
             if(progressDialog != null){
                 progressDialog.dismiss();
@@ -62,27 +61,26 @@ public class Login extends AppCompatActivity {
                 progressDialog.dismiss();
             }
             error.printStackTrace();
-            Toast.makeText(Login.this,"Oups ! Erreur de connexion.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginChauffeur.this,"Oups ! Erreur de connexion.", Toast.LENGTH_SHORT).show();
         }
     };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.activity_login_chauffeur);
 
-        btnconnexion = (Button) findViewById(R.id.btnconnexion);
-        btnswitchmode = (Button) findViewById(R.id.btnmodechauffeur);
-        txtlogin = (EditText) findViewById(R.id.txtlogin);
-        txtpassword = (EditText) findViewById(R.id.txtpassword);
+        btnconnexion = (Button) findViewById(R.id.btnconnexion_chauffeur);
+        btnswitchmode = (Button) findViewById(R.id.btnmodeproprietaire);
+        txtlogin = (EditText) findViewById(R.id.txtlogin_chauffeur);
+        txtpassword = (EditText) findViewById(R.id.txtpassword_chauffeur);
 
         btnconnexion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                progressDialog = ProgressDialog.show(Login.this,"Authentification du transporteur","Vérification de vos informations");
+                progressDialog = ProgressDialog.show(LoginChauffeur.this,"Authentification du chauffeur","Vérification de vos informations");
                 ApiTransvargo api = new ApiTransvargo(getBaseContext());
-                LoginAction login = new LoginAction(txtlogin.getText().toString(), txtpassword.getText().toString());
-                login.action = handler;
+                LoginChauffeurAction login = new LoginChauffeurAction(handler, txtlogin.getText().toString(), txtpassword.getText().toString());
                 api.executeHttpRequest(login);
             }
         });
@@ -90,7 +88,7 @@ public class Login extends AppCompatActivity {
         btnswitchmode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(Login.this, LoginChauffeur.class));
+                startActivity(new Intent(LoginChauffeur.this, Login.class));
             }
         });
     }
@@ -99,7 +97,7 @@ public class Login extends AppCompatActivity {
     {
         Log.e("#Trans-API#","back button pressed");
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(Login.this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(LoginChauffeur.this);
         builder.setMessage("Êtes-vous sur de vouloir quitter l'application ?");
         builder.setCancelable(false);
 

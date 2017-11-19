@@ -42,13 +42,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     style="@style/textStyle_primary_bold"
-                    android:text="@string/login_btn_connexion"
+                    android:text="@string/login_chauffeur_connexion"
                     />
 
                 <View
-                    android:layout_width="130dp"
+                    android:layout_width="170dp"
                     android:layout_height="3dp"
-                    android:background="@color/colorSupp"
+                    android:background="@color/colorPrimaryDark"
                     android:layout_marginBottom="40dp"
                     android:layout_marginTop="10dp"
                      />
@@ -56,39 +56,39 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="@string/login_email"
+                    android:text="@string/login_chauffeur_login"
                     style="@style/textStyle_primary_bold"
                     android:layout_marginBottom="5dp"
-                    android:labelFor="@+id/txtlogin"/>
+                    android:labelFor="@+id/txtlogin_chauffeur"/>
 
                 <EditText
-                    android:id="@+id/txtlogin"
+                    android:id="@+id/txtlogin_chauffeur"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="10dp"
-                    android:hint="Email ou n° de téléphone"
+                    android:hint="XXXX XX XX"
                     android:textSize="@dimen/text_normal"
                     android:inputType="text"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="@string/login_password"
+                    android:text="@string/login_chauffeur_password"
                     style="@style/textStyle_primary_bold"
                     android:layout_marginBottom="5dp"
-                    android:labelFor="@+id/txtpassword"/>
+                    android:labelFor="@+id/txtpassword_chauffeur"/>
 
                 <EditText
-                    android:id="@+id/txtpassword"
+                    android:id="@+id/txtpassword_chauffeur"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginBottom="10dp"
                     android:textSize="@dimen/text_normal"
-                    android:hint="Mot de passe ..."
+                    android:hint="XX XX XX XX"
                     android:inputType="textPassword"/>
 
                 <Button
-                    android:id="@+id/btnconnexion"
+                    android:id="@+id/btnconnexion_chauffeur"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/login_btn_connexion"
@@ -98,13 +98,13 @@
                     android:textStyle="bold"
                     android:textAllCaps="false"
                     android:textSize="@dimen/text_normal"
-                    android:background="@drawable/button"/>
+                    android:background="@drawable/button_alt"/>
 
                 <Button
-                    android:id="@+id/btnmodechauffeur"
+                    android:id="@+id/btnmodeproprietaire"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/login_btn_switch_mode_chauffeur"
+                    android:text="@string/login_btn_switch_mode_proprietaire"
                     android:textColor="@color/colorPrimary"
                     android:clickable="true"
                     android:focusable="true"

@@ -46,10 +46,16 @@ public class Demarrage extends AppCompatActivity {
                     if(transporteur != null)
                     {
                         Log.i("#Trans-API#","Check user connected");
-                        Log.i("#Trans-API#",transporteur.identite.id + " "+transporteur.nom + " "+ transporteur.prenoms);
-
-                        Intent intent = new Intent(Demarrage.this, Principal.class);
-                        startActivity(intent);
+                        if(transporteur.typetransporteur_id != Transporteur.CHAUFFEUR_FLOTTE)
+                        {
+                            Log.i("#Trans-API#",transporteur.identite.id + " "+transporteur.nom + " "+ transporteur.prenoms);
+                            Intent intent = new Intent(Demarrage.this, Principal.class);
+                            startActivity(intent);
+                        }else{
+                            Log.i("#Trans-API#",transporteur.vehicule.immatriculation + " | " +transporteur.vehicule.chauffeur );
+                            Intent intent = new Intent(Demarrage.this, Chargements.class);
+                            startActivity(intent);
+                        }
                         finish();
 
                     }else{ //On affiche la vue de connnexion

@@ -9,6 +9,8 @@ public class Vehicule {
     public String chauffeur;
     public String immatriculation;
     public String telephone;
+    public Float capacite;
 
     public TypeCamion typeCamion;
+    public Transporteur transporteur;
 }

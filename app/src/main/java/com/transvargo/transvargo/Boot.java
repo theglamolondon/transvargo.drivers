@@ -5,12 +5,12 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
-import com.android.volley.toolbox.Volley;
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.transvargo.transvargo.http.ApiTransvargo;
 import com.transvargo.transvargo.http.ResponseHandler;
+import com.transvargo.transvargo.http.behavior.FcmRefreshToken;
 import com.transvargo.transvargo.http.behavior.RefreshTokenAction;
 import com.transvargo.transvargo.model.Transporteur;
 import com.transvargo.transvargo.processing.StoreCache;
@@ -25,24 +25,29 @@ import java.nio.charset.StandardCharsets;
  * Created by BW.KOFFI on 13/08/2017.
  */
 
-public class Boot extends Application {
-
+public class Boot extends Application
+{
     private static Transporteur transporteur;
-    private ResponseHandler handler = new ResponseHandler() {
+
+    private ResponseHandler handler = new ResponseHandler()
+    {
         @Override
         public void doSomething(Object data) {
             JSONObject token = (JSONObject) data;
             try {
                 Log.e("###API token",token.getString("token"));
-                transporteur.jwt = token.getString("token");
-                StoreCache.store(Boot.this,StoreCache.TRANSVARGO_TRANSPORTEUR,transporteur);
+                if(transporteur != null) {
+                    transporteur.jwt = token.getString("token");
+                    StoreCache.store(Boot.this, StoreCache.TRANSVARGO_TRANSPORTEUR, transporteur);
+                }
             }catch (JSONException e){
                 e.printStackTrace();
             }
         }
 
         @Override
-        public void error(int httpCode, VolleyError error) {
+        public void error(int httpCode, VolleyError error)
+        {
             if(httpCode == 500){
                 Toast.makeText(Boot.this, "Une erreur de connexion au serveur est survenue.", Toast.LENGTH_SHORT).show();
             }else if(httpCode == 403){
@@ -59,15 +64,14 @@ public class Boot extends Application {
     };
 
     @Override
-    public void onCreate(){
+    public void onCreate()
+    {
         super.onCreate();
-
         transporteur = StoreCache.getObject(this,StoreCache.TRANSVARGO_TRANSPORTEUR,Transporteur.class);
 
         if(transporteur != null)
         {
             this.refreshJWToken();
-
             //Démarrage du service de géolocalisation
             startService(new Intent(this, Tracking.class));
 
@@ -75,6 +79,10 @@ public class Boot extends Application {
             {
                 //Souscription au topic de Firebase "drivers"
                 FirebaseMessaging.getInstance().subscribeToTopic("drivers");
+            }else{
+                String token = FirebaseInstanceId.getInstance().getToken();
+                Log.e("###FireBase", token);
+                this.sendLastFcmToken(token);
             }
         }
     }
@@ -85,9 +93,16 @@ public class Boot extends Application {
         return transporteur;
     }
 
-    private void refreshJWToken(){
+    private void refreshJWToken()
+    {
         ApiTransvargo api = new ApiTransvargo(this);
         RefreshTokenAction refresh = new RefreshTokenAction(this.handler);
         api.executeHttpRequest(refresh);
+    }
+
+    private void sendLastFcmToken(String token)
+    {
+        ApiTransvargo api = new ApiTransvargo(getBaseContext());
+        api.executeHttpRequest(new FcmRefreshToken(token));
     }
 }
