@@ -32,6 +32,8 @@ public class ApiTransvargo {
     public static String START_EXPEDITION = ApiTransvargo.url + "%s/chargement/start"; //1er %s => id transporteur & %s => reference de l'expedition
     public static String DELIVRY_EXPEDITION = ApiTransvargo.url + "%s/chargement/delivry"; //1er %s => id transporteur
     public static String FINISH_EXPEDITION = ApiTransvargo.url + "%s/chargement/finish"; //1er %s => id transporteur
+    public static String LOCATION_GPS = ApiTransvargo.url + "gps/location/store";
+    public static String FIREBASE_REFRESH_TOKEN = ApiTransvargo.url + "token/refresh";
 
     private ApiTransvargo mInstance;
     private RequestQueue mRequestQueue;

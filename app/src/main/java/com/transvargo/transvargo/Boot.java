@@ -1,6 +1,7 @@
 package com.transvargo.transvargo;
 
 import android.app.Application;
+import android.content.Intent;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -13,6 +14,7 @@ import com.transvargo.transvargo.http.ResponseHandler;
 import com.transvargo.transvargo.http.behavior.RefreshTokenAction;
 import com.transvargo.transvargo.model.Transporteur;
 import com.transvargo.transvargo.processing.StoreCache;
+import com.transvargo.transvargo.service.Tracking;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -42,9 +44,8 @@ public class Boot extends Application {
         @Override
         public void error(int httpCode, VolleyError error) {
             if(httpCode == 500){
-                Toast.makeText(Boot.this, "Une erreur de connexion au serveur eest survenue.", Toast.LENGTH_SHORT).show();
-            }else if(httpCode == 403)
-            {
+                Toast.makeText(Boot.this, "Une erreur de connexion au serveur est survenue.", Toast.LENGTH_SHORT).show();
+            }else if(httpCode == 403){
                 String response = new String(error.networkResponse.data, StandardCharsets.UTF_8);
                 try {
                     JSONObject objet = new JSONObject(response);
@@ -61,12 +62,21 @@ public class Boot extends Application {
     public void onCreate(){
         super.onCreate();
 
-        //Souscription de au topic de Firebase "drivers"
-        FirebaseMessaging.getInstance().subscribeToTopic("drivers");
-
         transporteur = StoreCache.getObject(this,StoreCache.TRANSVARGO_TRANSPORTEUR,Transporteur.class);
 
-        this.refreshJWToken();
+        if(transporteur != null)
+        {
+            this.refreshJWToken();
+
+            //Démarrage du service de géolocalisation
+            startService(new Intent(this, Tracking.class));
+
+            if(transporteur.typetransporteur_id == Transporteur.CHAFFEUR_PATRON || transporteur.typetransporteur_id == Transporteur.PROPRIETAIRE_FLOTTE)
+            {
+                //Souscription au topic de Firebase "drivers"
+                FirebaseMessaging.getInstance().subscribeToTopic("drivers");
+            }
+        }
     }
 
     public static void setTransporteur(Transporteur transporteur){ Boot.transporteur  = transporteur; }
@@ -75,11 +85,9 @@ public class Boot extends Application {
         return transporteur;
     }
 
-    private boolean refreshJWToken(){
+    private void refreshJWToken(){
         ApiTransvargo api = new ApiTransvargo(this);
         RefreshTokenAction refresh = new RefreshTokenAction(this.handler);
         api.executeHttpRequest(refresh);
-
-        return true;
     }
 }

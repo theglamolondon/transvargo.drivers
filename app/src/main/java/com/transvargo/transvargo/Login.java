@@ -17,6 +17,7 @@ import com.android.volley.toolbox.Volley;
 import com.transvargo.transvargo.http.ApiTransvargo;
 import com.transvargo.transvargo.http.ResponseHandler;
 import com.transvargo.transvargo.http.behavior.LoginAction;
+import com.transvargo.transvargo.service.Tracking;
 
 import java.util.List;
 
@@ -43,6 +44,9 @@ public class Login extends AppCompatActivity {
             Log.e("##TESTS##","execute login");
             Intent openApp = new Intent(Login.this,Principal.class);
             startActivity(openApp);
+
+            //Démarrage du service de géolocalisation
+            startService(new Intent(Login.this, Tracking.class));
 
             if(progressDialog != null){
                 progressDialog.dismiss();

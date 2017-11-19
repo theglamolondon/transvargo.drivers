@@ -29,6 +29,14 @@ public class StoreCache {
         return true;
     }
 
+    public static void delete(Context context, String key)
+    {
+        SharedPreferences setting = context.getSharedPreferences(TRANVARGO_CACHE, 0);
+        final SharedPreferences.Editor editor = setting.edit();
+        editor.remove(key);
+        editor.apply();
+    }
+
     public static String getString(Context context, String key)
     {
         SharedPreferences settings = context.getSharedPreferences(TRANVARGO_CACHE, 0);
@@ -50,5 +58,4 @@ public class StoreCache {
             return null;
         }
     }
-
 }

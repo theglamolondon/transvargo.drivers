@@ -180,6 +180,7 @@ public class ListeOffreAction extends HttpRequest {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<>();
                 headers.put("Authorization", "Bearer " + transporteur.jwt);
+                headers.put("Accept", "application/json");
                 headers.put("x-app-navigateur", "app-android-transvargo");
                 return headers;
             }

@@ -18,7 +18,10 @@ import com.transvargo.transvargo.http.ApiTransvargo;
 import com.transvargo.transvargo.http.ResponseHandler;
 import com.transvargo.transvargo.model.Identite;
 import com.transvargo.transvargo.model.Transporteur;
+import com.transvargo.transvargo.model.TypeCamion;
+import com.transvargo.transvargo.model.Vehicule;
 import com.transvargo.transvargo.processing.StoreCache;
+import com.transvargo.transvargo.service.Tracking;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -72,6 +75,21 @@ public class LoginAction extends HttpRequest
                             JSONObject jTransporteur = jIdentite.getJSONObject("transporteur");
                             String jwt = response.getString("token");
 
+                            Vehicule vehicule = null;
+
+                            try{
+                                JSONObject jVehicule = response.getJSONObject("vehicule");
+                                vehicule = new Vehicule();
+                                vehicule.immatriculation = jVehicule.getString("immatriculation");
+                                vehicule.id = jVehicule.getInt("id");
+                                vehicule.chauffeur = jVehicule.getString("chauffeur");
+                                vehicule.telephone = jVehicule.getString("telephone");
+                                vehicule.typeCamion = new TypeCamion();
+                                vehicule.typeCamion.id = jVehicule.getInt("typecamion_id");
+                            }catch (JSONException e){
+                                e.printStackTrace();
+                            }
+
                             Transporteur transporteur = new Transporteur();
                             transporteur.jwt = jwt;
                             transporteur.nom = jTransporteur.getString("nom");
@@ -85,6 +103,7 @@ public class LoginAction extends HttpRequest
                             transporteur.lieunaissance = jTransporteur.getString("lieunaissance");
                             transporteur.rib = jTransporteur.getString("rib");
                             transporteur.datecreation = jTransporteur.getString("datecreation");
+                            transporteur.typetransporteur_id = jTransporteur.getInt("typetransporteur_id");
 
                             Identite identite = new Identite();
                             identite.email = jIdentite.getString("email");
@@ -92,6 +111,7 @@ public class LoginAction extends HttpRequest
                             identite.statut = jIdentite.getInt("statut");
 
                             transporteur.identite = identite;
+                            transporteur.vehicule = vehicule;
 
                             StoreCache.store(context,StoreCache.TRANSVARGO_TRANSPORTEUR,transporteur);
 
@@ -103,6 +123,7 @@ public class LoginAction extends HttpRequest
 
                         } catch (JSONException e) {
                             e.printStackTrace();
+                            //action.error(500, null);
                         }
 
                     }
@@ -110,12 +131,13 @@ public class LoginAction extends HttpRequest
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("#Trans-API#",error.toString());
-
                         try {
                             if (error.networkResponse.statusCode == 403) {
                                 Toast.makeText(context, "Login ou mot de passe incorrect", Toast.LENGTH_SHORT).show();
                             }
+                            action.error(error.networkResponse.statusCode, error);
                         }catch (NullPointerException e){
+                            action.error(0, error);
                             Toast.makeText(context,"Problème de connexion à internet ou au serveur.",Toast.LENGTH_SHORT).show();
                         }
                     }
@@ -127,6 +149,7 @@ public class LoginAction extends HttpRequest
                 HashMap<String, String> headers  = new HashMap<>();
 
                 headers.put("x-app-navigateur","app-android-transvargo");
+                headers.put("Accept", "application/json");
 
                 return headers ;
             }

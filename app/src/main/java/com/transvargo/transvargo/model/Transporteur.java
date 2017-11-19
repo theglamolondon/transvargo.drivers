@@ -7,6 +7,10 @@ package com.transvargo.transvargo.model;
 public class Transporteur {
 
     public static double pourcentage = 0.75;
+    public static final int CHAFFEUR_PATRON = 1;
+    public static final int PROPRIETAIRE_FLOTTE = 2;
+    public static final int CHAUFFEUR_FLOTTE = 3;
+
     public Identite identite;
 
     public String nom;
@@ -20,7 +24,10 @@ public class Transporteur {
     public String lieunaissance;
     public String rib;
     public String datecreation;
+    public int typetransporteur_id;
 
     public String jwt;
+
+    public Vehicule vehicule;
 
 }

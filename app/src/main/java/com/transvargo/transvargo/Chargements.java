@@ -158,13 +158,12 @@ public class Chargements extends MyActivityModel {
             Log.e("###Liste","Statut actuel :"+chargement.expedition.statut+" | Statut recherché :"+statut);
             if( chargement.expedition.statut == statut )
             {
-                Log.e("###Liste","Chargement ajouté");
                 liste.add(chargement);
             }
         }
         Log.e("###Liste",liste.toString());
-        //return liste;
-        return this.chargements;
+        return liste;
+        //return this.chargements;
     }
 
     public void setListeChargement(List<Chargement> liste)

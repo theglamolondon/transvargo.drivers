@@ -52,6 +52,7 @@ public class RefreshTokenAction extends HttpRequest {
                 HashMap<String, String> headers  = new HashMap<>();
 
                 headers.put("Authorization", "Bearer " + Boot.getTransporteurConnecte().jwt);
+                headers.put("Accept", "application/json");
                 headers.put("x-app-navigateur","app-android-transvargo");
 
                 return headers ;
