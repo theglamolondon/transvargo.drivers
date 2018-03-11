@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_version">1.0.9</string>
+    <string name="app_version">1.1.0</string>
     <string name="app_name">Transvargo</string>
     <string name="app_spec">Drivers</string>
     <string name="app_full_name">Transvargo Drivers</string>
