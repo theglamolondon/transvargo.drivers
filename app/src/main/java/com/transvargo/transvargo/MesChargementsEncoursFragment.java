@@ -144,9 +144,11 @@ public class MesChargementsEncoursFragment extends Fragment {
 
             viewHolder.section_label.setText("Chargement en cours");
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                viewHolder.relativ_chgmnt_template.setBackgroundColor(mContext.getColor(R.color.colorAccent));
+                //viewHolder.relativ_chgmnt_template.setBackgroundColor(mContext.getColor(R.color.colorSecondaryLitgh));
+                viewHolder.section_label.setTextColor(mContext.getColor(R.color.colorSecondaryLitgh));
             }else{
-                viewHolder.relativ_chgmnt_template.setBackgroundColor(mContext.getResources().getColor(R.color.colorAccent));
+                //viewHolder.relativ_chgmnt_template.setBackgroundColor(mContext.getResources().getColor(R.color.colorSecondaryLitgh));
+                viewHolder.section_label.setTextColor(mContext.getResources().getColor(R.color.colorSecondaryLitgh));
             }
 
             viewHolder.txt_depart.setText(chargement.expedition.lieudepart);
