@@ -24,7 +24,9 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import com.transvargo.transvargo.http.ApiTransvargo;
 import com.transvargo.transvargo.http.ResponseHandler;
@@ -57,6 +59,8 @@ public class DetailsChargement extends AppCompatActivity {
             JSONObject objet = (JSONObject) data;
             try {
                 Toast.makeText(DetailsChargement.this,objet.getString("message"),Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(DetailsChargement.this, Chargements.class));
+                finish();
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -148,28 +152,33 @@ public class DetailsChargement extends AppCompatActivity {
                 //Activer la permission si elle n'est pas donnée
                 if (ActivityCompat.shouldShowRequestPermissionRationale(DetailsChargement.this, Manifest.permission.ACCESS_COARSE_LOCATION))
                 {
-                    map.setMyLocationEnabled(true);
-
-                    MapsInitializer.initialize(DetailsChargement.this);
-
-                    String[] raw = chargement.expedition.coorddepart.split(",");
-                    CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(Float.parseFloat(raw[0]), Float.parseFloat(raw[1])), 10);
-
-                    map.animateCamera(cameraUpdate);
+                    addMarker(map, chargement);
                 }
 
             }else{
-                map.setMyLocationEnabled(true);
-
-                MapsInitializer.initialize(DetailsChargement.this);
-
-                String[] raw = chargement.expedition.coorddepart.split(",");
-                CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(Float.parseFloat(raw[0]), Float.parseFloat(raw[1])), 10);
-
-                map.animateCamera(cameraUpdate);
+               addMarker(map, chargement);
             }
             }
         });
+    }
+
+    private void addMarker(GoogleMap map, Chargement chargement)
+    {
+        try {
+            map.setMyLocationEnabled(true);
+        }catch (SecurityException e){
+            e.printStackTrace();
+        }
+        MapsInitializer.initialize(DetailsChargement.this);
+
+        String[] raw = chargement.expedition.coorddepart.split(",");
+        //ajout du marker
+        LatLng departMarker = new LatLng(Float.parseFloat(raw[0]), Float.parseFloat(raw[1]));
+        map.addMarker(new MarkerOptions().position(departMarker).title(chargement.societechargement+" | "+chargement.contactchargement).icon(BitmapDescriptorFactory.fromResource(R.drawable.package32)));
+
+        //Annimation de la vue
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(departMarker, 10);
+        map.animateCamera(cameraUpdate);
     }
 
     @Override

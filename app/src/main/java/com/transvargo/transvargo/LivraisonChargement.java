@@ -27,7 +27,9 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
 import com.google.android.gms.maps.MapsInitializer;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.gson.Gson;
 import com.transvargo.transvargo.http.ApiTransvargo;
 import com.transvargo.transvargo.http.ResponseHandler;
@@ -162,29 +164,34 @@ public class LivraisonChargement extends MyActivityModel {
                         //Activer la permission si elle n'est pas donnée
                         if (ActivityCompat.shouldShowRequestPermissionRationale(LivraisonChargement.this, Manifest.permission.ACCESS_FINE_LOCATION))
                         {
-                            map.setMyLocationEnabled(true);
-
-                            MapsInitializer.initialize(LivraisonChargement.this);
-
-                            String[] raw = chargement.expedition.coordarrivee.split(",");
-                            CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(Float.parseFloat(raw[0]), Float.parseFloat(raw[1])), 10);
-
-                            map.animateCamera(cameraUpdate);
+                            addMarker(map, chargement);
                         }
 
                     }else{
-                        map.setMyLocationEnabled(true);
-
-                        MapsInitializer.initialize(LivraisonChargement.this);
-
-                        String[] raw = chargement.expedition.coordarrivee.split(",");
-                        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(new LatLng(Float.parseFloat(raw[0]), Float.parseFloat(raw[1])), 10);
-
-                        map.animateCamera(cameraUpdate);
+                        addMarker(map, chargement);
                     }
                 }
             });
         }
+    }
+
+    private void addMarker(GoogleMap map, Chargement chargement)
+    {
+        try {
+            map.setMyLocationEnabled(true);
+        }catch (SecurityException e){
+            e.printStackTrace();
+        }
+        MapsInitializer.initialize(LivraisonChargement.this);
+
+        String[] raw = chargement.expedition.coordarrivee.split(",");
+        //ajout du marker
+        LatLng departMarker = new LatLng(Float.parseFloat(raw[0]), Float.parseFloat(raw[1]));
+        map.addMarker(new MarkerOptions().position(departMarker).title(chargement.societelivraison+" | "+chargement.contactlivraison).icon(BitmapDescriptorFactory.fromResource(R.drawable.package32)));
+
+        //Annimation de la vue
+        CameraUpdate cameraUpdate = CameraUpdateFactory.newLatLngZoom(departMarker, 10);
+        map.animateCamera(cameraUpdate);
     }
 
     private void showOtpCheck()

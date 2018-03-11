@@ -72,8 +72,12 @@ public class Boot extends Application
         if(transporteur != null)
         {
             this.refreshJWToken();
-            //Démarrage du service de géolocalisation
-            startService(new Intent(this, Tracking.class));
+
+            if(transporteur.vehicule != null)
+            {
+                //Démarrage du service de géolocalisation
+                startService(new Intent(this, Tracking.class));
+            }
 
             if(transporteur.typetransporteur_id == Transporteur.CHAFFEUR_PATRON || transporteur.typetransporteur_id == Transporteur.PROPRIETAIRE_FLOTTE)
             {
