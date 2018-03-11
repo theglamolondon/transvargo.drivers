@@ -157,8 +157,8 @@ public class Reservation extends MyActivityModel {
     private void fillView()
     {
         this.txt_reserv_typecamion.setText(offre.typeCamion.libelle);
-        this.txt_reserv_distance.setText(String.format("%s km",offre.distance));
-        this.txt_reserv_prix.setText(String.format("%s FCFA",offre.prix));
+        //this.txt_reserv_distance.setText(String.format("%s km",offre.distance));
+        //this.txt_reserv_prix.setText(String.format("%s FCFA",offre.prix));
 
         List<String> immatriculation = new ArrayList<>();
         for (int i = 0 ; i <= this.listeVehicule.size() - 1; i++)

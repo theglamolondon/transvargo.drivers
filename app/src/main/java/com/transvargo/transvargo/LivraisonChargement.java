@@ -99,7 +99,7 @@ public class LivraisonChargement extends MyActivityModel {
         this.txt_livr_chgmt_societe = (TextView)  findViewById(R.id.txt_livr_chgmt_societe);
         this.txt_livr_chgmt_masse = (TextView)  findViewById(R.id.txt_livr_chgmt_masse);
         this.txt_livr_chgmt_fragile = (TextView)  findViewById(R.id.txt_livr_chgmt_fragile);
-        this.txt_livr_chgmt_distance = (TextView)  findViewById(R.id.txt_livr_chgmt_distance);
+        //this.txt_livr_chgmt_distance = (TextView)  findViewById(R.id.txt_livr_chgmt_distance);
 
         this.mapView = (MapView) findViewById(R.id.mapView);
         this.mapView.onCreate(savedInstanceState);
@@ -110,11 +110,11 @@ public class LivraisonChargement extends MyActivityModel {
             Gson gson = new Gson();
             this.chargement = gson.fromJson(bundle.getString("chargement"),Chargement.class);
 
-            this.txt_livr_chgmt_receptionniste.setText(this.chargement.expedition.client.nom+" "+this.chargement.expedition.client.prenoms);
+            this.txt_livr_chgmt_receptionniste.setText(String.format("%s %s",this.chargement.expedition.client.nom, this.chargement.expedition.client.prenoms));
             this.txt_livr_chgmt_societe.setText(this.chargement.societelivraison);
-            this.txt_livr_chgmt_masse.setText(String.format("%s kg",this.chargement.expedition.masse));
+            this.txt_livr_chgmt_masse.setText(String.format("%s tonne(s)",this.chargement.expedition.tonnage != null ? this.chargement.expedition.tonnage.masse : "ND" ));
             this.txt_livr_chgmt_fragile.setText(this.chargement.expedition.fragile ? "Oui" : "Non");
-            this.txt_livr_chgmt_distance.setText(String.format("%s km", this.chargement.expedition.distance ));
+            //this.txt_livr_chgmt_distance.setText(String.format("%s km", this.chargement.expedition.distance ));
 
             this.btn_call.setOnClickListener(new View.OnClickListener() {
                 @Override

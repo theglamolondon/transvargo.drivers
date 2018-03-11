@@ -164,7 +164,7 @@ public class Chargements extends MyActivityModel {
                 liste.add(chargement);
             }
         }
-        Log.e("###Liste",liste.toString());
+        Log.e("###Liste-Chargement",liste.toString());
         return liste;
         //return this.chargements;
     }
@@ -172,7 +172,7 @@ public class Chargements extends MyActivityModel {
     public void setListeChargement(List<Chargement> liste)
     {
         this.chargements = liste;
-        Log.e("###Liste-Chargement",liste.size()+" élément(s)");
+        Log.e("###Liste-Chargement",liste.size()+" élément(s) ajouté(s)");
     }
 
     public void onBackPressed()

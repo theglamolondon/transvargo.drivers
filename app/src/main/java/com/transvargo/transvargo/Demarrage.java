@@ -49,13 +49,11 @@ public class Demarrage extends AppCompatActivity {
                         if(transporteur.typetransporteur_id != Transporteur.CHAUFFEUR_FLOTTE)
                         {
                             Log.i("#Trans-API#",transporteur.identite.id + " "+transporteur.nom + " "+ transporteur.prenoms);
-                            Intent intent = new Intent(Demarrage.this, Principal.class);
-                            startActivity(intent);
                         }else{
                             Log.i("#Trans-API#",transporteur.vehicule.immatriculation + " | " +transporteur.vehicule.chauffeur );
-                            Intent intent = new Intent(Demarrage.this, Chargements.class);
-                            startActivity(intent);
                         }
+                        Intent intent = new Intent(Demarrage.this, Chargements.class);
+                        startActivity(intent);
                         finish();
 
                     }else{ //On affiche la vue de connnexion
@@ -66,11 +64,8 @@ public class Demarrage extends AppCompatActivity {
                 }
             }
         };
-
         timer.start();
-
         setContentView(R.layout.activity_demarrage);
-
     }
 
     @Override

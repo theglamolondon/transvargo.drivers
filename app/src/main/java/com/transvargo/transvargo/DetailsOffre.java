@@ -98,17 +98,12 @@ public class DetailsOffre extends MyActivityModel {
         this.txt_dtls_datelivraison.setText( String.format("Livraison au plus tard le %s",sdf.format(this.offre.dateexpiration)) );
         this.txt_dtls_livraison.setText( String.format("Contacter %s au %s. \n %s", this.offre.chargement.contactlivraison, this.offre.chargement.telephonelivraison, this.offre.chargement.adresselivraison) );
 
-        if(this.offre.masse <= 10000)
-        {
-            this.txt_dtls_masse.setText(String.format("%s tonne(s)",(offre.masse/1000)));
-        }else {
-            this.txt_dtls_masse.setText(String.format("%s kg",offre.masse));
-        }
+        this.txt_dtls_masse.setText(String.format("%s tonne(s)",(offre.tonnage != null ? offre.tonnage.masse : "ND")));
 
         this.txt_dtls_fragile.setText(this.offre.fragile ? "Oui" : "Non");
-        this.txt_dtls_distance.setText( String.format("%s km",this.offre.distance) );
+        //this.txt_dtls_distance.setText( String.format("%s km",this.offre.distance) );
 
         this.txt_dtls_typecamion.setText( this.offre.typeCamion.libelle );
-        this.txt_dtls_prix.setText( String.format("%s FCFA", this.offre.prix) );
+        //this.txt_dtls_prix.setText( String.format("%s FCFA", this.offre.prix) );
     }
 }

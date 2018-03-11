@@ -193,13 +193,13 @@ public class MesChargementsFragment extends Fragment {
             offre.reference = rExpedition.getString("reference");
             offre.coordarrivee = rExpedition.getString("coordarrivee");
             offre.coorddepart = rExpedition.getString("coorddepart");
-            offre.masse = rExpedition.getLong("masse");
+            //offre.masse = rExpedition.getLong("masse");
             offre.fragile = rExpedition.getBoolean("fragile");
 
-            Double rPrix = (Transporteur.pourcentage * rExpedition.getInt("prix"));
-            offre.prix = rPrix.intValue();
+            //Double rPrix = (Transporteur.pourcentage * rExpedition.getInt("prix"));
+            //offre.prix = rPrix.intValue();
 
-            offre.distance = rExpedition.getInt("distance");
+            //offre.distance = rExpedition.getInt("distance");
             offre.lieudepart = rExpedition.getString("lieudepart");
             offre.lieuarrivee = rExpedition.getString("lieuarrivee");
             offre.statut = rExpedition.getInt("statut");

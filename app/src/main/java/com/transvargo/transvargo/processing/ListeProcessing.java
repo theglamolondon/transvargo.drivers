@@ -65,8 +65,8 @@ public class ListeProcessing extends ArrayAdapter<Offre> {
         Offre offre = getItem(position);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy", Locale.FRENCH);
 
-        viewHolder.txt_offre_distance.setText(String.format("%s km", offre.distance ));
-        viewHolder.txt_offre_prix.setText(String.format("%s FCFA",offre.prix) );
+        //viewHolder.txt_offre_distance.setText(String.format("%s km", offre.distance ));
+        //viewHolder.txt_offre_prix.setText(String.format("%s FCFA",offre.prix) );
         viewHolder.txt_offre_datechargement.setText(sdf.format(offre.datechargement));
         viewHolder.txt_offre_dateexpiration.setText(sdf.format(offre.dateexpiration));
         viewHolder.txt_offre_lieuarrivee.setText(offre.lieuarrivee);
@@ -74,12 +74,7 @@ public class ListeProcessing extends ArrayAdapter<Offre> {
         viewHolder.txt_offre_delais.setText( String.format("%s jour(s)", (offre.dateexpiration.getTime() - (new Date().getTime()))/(1000*60*60*24)));
         viewHolder.txt_offre_fragile.setText(offre.fragile ? "Oui" : "Non");
 
-        if(offre.masse <= 10000)
-        {
-            viewHolder.txt_offre_masse.setText(String.format("%s T", offre.masse/1000));
-        }else {
-            viewHolder.txt_offre_masse.setText(String.format("%s kg", offre.masse));
-        }
+        viewHolder.txt_offre_masse.setText(String.format("%s tonne(s)", offre.tonnage != null ? offre.tonnage.masse : "N/D"));
 
         return convertView;
     }

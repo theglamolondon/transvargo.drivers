@@ -45,9 +45,6 @@
             android:label="@string/title_activity_chargement"
             android:parentActivityName=".Principal"
             android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.transvargo.transvargo.Principal" />
         </activity>
         <activity android:name=".DetailsChargement">
             <meta-data

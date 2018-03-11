@@ -176,31 +176,6 @@
                 android:layout_marginBottom="4dp"
                 />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="@dimen/text_normal"
-                    android:text="@string/title_details_distance"
-                    android:layout_weight="1"/>
-
-                <TextView
-                    android:id="@+id/txt_dtls_chgmt_distance"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textColor="@color/colorPrimaryDark"
-                    android:textStyle="bold"
-                    android:text="526 km"
-                    android:textAlignment="viewEnd"
-                    android:textSize="@dimen/text_normal"
-                    android:layout_weight="1"/>
-
-            </LinearLayout>
         </LinearLayout>
 
         <Button

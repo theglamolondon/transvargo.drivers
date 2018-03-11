@@ -14,6 +14,7 @@ import com.transvargo.transvargo.http.ResponseHandler;
 import com.transvargo.transvargo.model.Chargement;
 import com.transvargo.transvargo.model.Client;
 import com.transvargo.transvargo.model.Offre;
+import com.transvargo.transvargo.model.Tonnage;
 import com.transvargo.transvargo.model.Transporteur;
 import com.transvargo.transvargo.model.Vehicule;
 import com.transvargo.transvargo.processing.StoreCache;
@@ -109,11 +110,11 @@ public class ListeExpeditionsAction extends HttpRequest {
                 }
 
                 chargement.adressechargement = rChargement.getString("adressechargement");
-                chargement.societechargement = rChargement.getString("societechargement");
+                chargement.societechargement = rChargement.getString("societechargement") != null ? rChargement.getString("societechargement") : "ND";
                 chargement.contactchargement = rChargement.getString("contactchargement");
                 chargement.telephonechargement = rChargement.getString("telephonechargement");
                 chargement.adresselivraison = rChargement.getString("adresselivraison");
-                chargement.societelivraison = rChargement.getString("societelivraison");
+                chargement.societelivraison = rChargement.getString("societelivraison") != null ? rChargement.getString("societelivraison") : "ND";;
                 chargement.contactlivraison = rChargement.getString("contactlivraison");
                 chargement.telephonelivraison = rChargement.getString("telephonelivraison");
 
@@ -181,16 +182,23 @@ public class ListeExpeditionsAction extends HttpRequest {
             offre.reference = rExpedition.getString("reference");
             offre.coordarrivee = rExpedition.getString("coordarrivee");
             offre.coorddepart = rExpedition.getString("coorddepart");
-            offre.masse = rExpedition.getLong("masse");
+            //offre.masse = rExpedition.getLong("masse");
             offre.fragile = rExpedition.getBoolean("fragile");
 
-            Double rPrix = (Transporteur.pourcentage * rExpedition.getInt("prix"));
-            offre.prix = rPrix.intValue();
+            //Double rPrix = (Transporteur.pourcentage * rExpedition.getInt("prix"));
+            //offre.prix = rPrix.intValue();
 
-            offre.distance = rExpedition.getInt("distance");
+            //offre.distance = rExpedition.getInt("distance");
             offre.lieudepart = rExpedition.getString("lieudepart");
             offre.lieuarrivee = rExpedition.getString("lieuarrivee");
             offre.statut = rExpedition.getInt("statut");
+
+            //Tonnage
+            JSONObject rTonnage = rExpedition.getJSONObject("tonnage");
+            Tonnage tonnage = new Tonnage();
+            tonnage.id = rTonnage.getInt("id");
+            tonnage.masse = rTonnage.getString("masse");
+            offre.tonnage = tonnage;
 
             //Client
             JSONObject rClient = rExpedition.getJSONObject("client");

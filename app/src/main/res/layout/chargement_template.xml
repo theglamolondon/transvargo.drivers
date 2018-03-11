@@ -4,8 +4,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
+    android:paddingLeft="0dp"
+    android:paddingRight="0dp"
     android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_goneMarginBottom="15dp">
 
@@ -19,25 +19,33 @@
         android:id="@+id/relativ_chgmnt_template"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark">
+        android:background="@color/color_white">
         <ImageView
             android:paddingLeft="10dp"
             android:id="@+id/truck"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:src="@drawable/delivery512"/>
+            android:src="@drawable/package32"/>
         <TextView
             android:id="@+id/section_label"
             android:text="Chargement en attente"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@color/color_white"
+            android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/text_h1"
             android:textAlignment="center"
             android:textStyle="bold"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/truck" />
     </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/black_overlay"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -59,30 +67,27 @@
                 android:textAlignment="center"
                 android:text="lkddjk  lklsjjk lklksdjds sddsklk kjsdjdksd ksd ks"
                 android:textSize="@dimen/text_normal"
-                android:textStyle="bold"
-                android:textColor="#333"/>
+                android:textStyle="normal"/>
 
             <TextView
                 android:id="@+id/txt_chrgmt_datechargement"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/text_normal"
-                android:textColor="#555"
+                android:layout_marginTop="5dp"
                 android:text="12/08/2017"
                 android:textAlignment="center"
-                android:layout_marginTop="5dp"/>
+                android:textStyle="bold"
+                android:textColor="@color/colorSecondary"
+                android:textSize="@dimen/text_normal" />
 
         </LinearLayout>
 
-        <TextView
+        <ImageView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="100dp"
             android:layout_weight="3"
             android:layout_gravity="center"
-            android:text=">"
-            android:textSize="70sp"
-            android:textAlignment="center"
-            android:textStyle="bold"/>
+            android:src="@drawable/delivery512"/>
 
 
         <LinearLayout
@@ -99,15 +104,15 @@
             android:textAlignment="center"
             android:text="lkddjk  lklsjjk lklksdjds sddsklk kjsdjdksd ksd ks"
             android:textSize="@dimen/text_normal"
-            android:textStyle="bold"
-            android:textColor="#333"/>
+            android:textStyle="normal"/>
 
             <TextView
                 android:id="@+id/txt_chrgmt_dateexpiration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_normal"
-                android:textColor="#777"
+                android:textColor="@color/colorSecondary"
+                android:textStyle="bold"
                 android:text="22/08/2017"
                 android:textAlignment="center"
                 android:layout_marginTop="9dp"/>

@@ -20,6 +20,7 @@ import com.transvargo.transvargo.model.Chargement;
 import com.transvargo.transvargo.model.Client;
 import com.transvargo.transvargo.model.Identite;
 import com.transvargo.transvargo.model.Offre;
+import com.transvargo.transvargo.model.Tonnage;
 import com.transvargo.transvargo.model.Transporteur;
 import com.transvargo.transvargo.model.TypeCamion;
 import com.transvargo.transvargo.processing.StoreCache;
@@ -106,14 +107,21 @@ public class ListeOffreAction extends HttpRequest {
                         offre.reference = rOffre.getString("reference");
                         offre.coordarrivee = rOffre.getString("coordarrivee");
                         offre.coorddepart = rOffre.getString("coorddepart");
-                        offre.masse = rOffre.getLong("masse");
+                        //offre.masse = rOffre.getLong("masse");
                         offre.fragile = rOffre.getBoolean("fragile");
                         Double rPrix = (Transporteur.pourcentage * rOffre.getInt("prix"));
-                        offre.prix = rPrix.intValue();
-                        offre.distance = rOffre.getInt("distance");
+                        //offre.prix = rPrix.intValue();
+                        //offre.distance = rOffre.getInt("distance");
                         offre.lieudepart = rOffre.getString("lieudepart");
                         offre.lieuarrivee = rOffre.getString("lieuarrivee");
                         offre.statut = rOffre.getInt("statut");
+
+                        //Tonnage
+                        JSONObject rTonnage = rOffre.getJSONObject("tonnage");
+                        Tonnage tonnage = new Tonnage();
+                        tonnage.id = rTonnage.getInt("id");
+                        tonnage.masse = rTonnage.getString("masse");
+                        offre.tonnage = tonnage;
 
                         //Client
                         JSONObject rClient = rOffre.getJSONObject("client");

@@ -90,7 +90,7 @@ public class DetailsChargement extends AppCompatActivity {
         this.txt_dtls_chgmt_societe = (TextView) findViewById(R.id.txt_dtls_chgmt_societe);
         this.txt_dtls_chgmt_masse = (TextView) findViewById(R.id.txt_dtls_chgmt_masse);
         this.txt_dtls_chgmt_fragile = (TextView) findViewById(R.id.txt_dtls_chgmt_fragile);
-        this.txt_dtls_chgmt_distance = (TextView) findViewById(R.id.txt_dtls_chgmt_distance);
+        //this.txt_dtls_chgmt_distance = (TextView) findViewById(R.id.txt_dtls_chgmt_distance);
 
 
         Bundle bundle = getIntent().getExtras();
@@ -99,11 +99,11 @@ public class DetailsChargement extends AppCompatActivity {
             Gson gson = new Gson();
             this.chargement = gson.fromJson(bundle.getString("chargement"),Chargement.class);
 
-            this.txt_dtls_chgmt_expediteur.setText(this.chargement.expedition.client.nom+" "+this.chargement.expedition.client.prenoms);
+            this.txt_dtls_chgmt_expediteur.setText(String.format("%s %s",this.chargement.expedition.client.nom, this.chargement.expedition.client.prenoms));
             this.txt_dtls_chgmt_societe.setText(this.chargement.societechargement);
-            this.txt_dtls_chgmt_masse.setText(String.format("%s kg",this.chargement.expedition.masse));
+            this.txt_dtls_chgmt_masse.setText(String.format("%s tonne(s)",(this.chargement.expedition.tonnage != null ? this.chargement.expedition.tonnage.masse : "ND")));
             this.txt_dtls_chgmt_fragile.setText(this.chargement.expedition.fragile ? "Oui" : "Non");
-            this.txt_dtls_chgmt_distance.setText(String.format("%s km", this.chargement.expedition.distance ));
+            //this.txt_dtls_chgmt_distance.setText(String.format("%s km", this.chargement.expedition.distance ));
 
             this.btn_call.setOnClickListener(new View.OnClickListener() {
                 @Override

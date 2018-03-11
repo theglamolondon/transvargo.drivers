@@ -18,12 +18,13 @@ public class Offre {
     public String coorddepart;
     public String lieuarrivee;
     public String coordarrivee;
-    public double masse;
+    //public double masse;
     public int statut;
     public Boolean fragile;
-    public int prix;
-    public int distance;
+    //public int prix;
+    //public int distance;
 
+    public Tonnage tonnage;
     public Client client;
     public Chargement chargement;
     public TypeCamion typeCamion;
