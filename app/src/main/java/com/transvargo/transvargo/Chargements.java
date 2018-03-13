@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.design.widget.TabLayout;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -52,6 +53,9 @@ public class Chargements extends MyActivityModel {
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ProgressDialog progressDialog;
 
+
+    SwipeRefreshLayout swipe_layout  = null;
+
     /**
      * The {@link ViewPager} that will host the section contents.
      */
@@ -60,6 +64,7 @@ public class Chargements extends MyActivityModel {
     private ResponseHandler handler = new ResponseHandler() {
         @Override
         public <T> void doSomething(List<T> data) {
+            swipe_layout.setRefreshing(false);
             setListeChargement((ArrayList<Chargement>) data);
             notifyFragmentMesChargements();
             notifyFragmentEncours();
@@ -84,6 +89,7 @@ public class Chargements extends MyActivityModel {
                 Log.e("###API-Chargement",error.getMessage());
                 Toast.makeText(getBaseContext(),"Impossible de se connecter au serveur. Veuillez ressayer dans un instant.", Toast.LENGTH_LONG).show();
             }
+            swipe_layout.setRefreshing(false);
             progressDialog.dismiss();
         }
     };
@@ -95,6 +101,15 @@ public class Chargements extends MyActivityModel {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_chargement);
+
+        this.swipe_layout = (SwipeRefreshLayout) findViewById(R.id.swipe_layout_chgmt);
+        this.swipe_layout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipe_layout.setRefreshing(true);
+                loadData();
+            }
+        });
 
         TabLayout tab = (TabLayout) findViewById(R.id.tabs);
 

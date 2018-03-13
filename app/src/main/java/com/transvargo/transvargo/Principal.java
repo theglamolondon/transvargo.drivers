@@ -74,7 +74,6 @@ public class Principal extends MyActivityModel {
         this.rWait = (RelativeLayout) findViewById(R.id.rWait);
 
         this.lwListeOffres = (ListView) findViewById(R.id.lwListeOffres);
-        this.swipe_layout = (SwipeRefreshLayout) findViewById(R.id.swipe_layout);
 
         this.lwListeOffres.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -85,6 +84,8 @@ public class Principal extends MyActivityModel {
                 startActivity(intent);
             }
         });
+
+        this.swipe_layout = (SwipeRefreshLayout) findViewById(R.id.swipe_layout);
         this.swipe_layout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
