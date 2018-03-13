@@ -11,4 +11,9 @@
         android:id="@+id/menu_logout"
         android:actionViewClass="android.widget.SearchView"
         android:title="@string/menu_deconnexion" />
+
+    <item
+        android:id="@+id/menu_quit"
+        android:actionViewClass="android.widget.SearchView"
+        android:title="@string/menu_quit" />
 </menu>

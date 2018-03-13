@@ -25,6 +25,7 @@
 
     <string name="menu_profil">Mon profil</string>
     <string name="menu_deconnexion">Déconnexion</string>
+    <string name="menu_quit">Quitter</string>
 
     <string name="title_details_marchandise">Marchandises</string>
     <string name="title_details_options">Transport</string>
