@@ -82,7 +82,7 @@ public class Boot extends Application
             if(transporteur.typetransporteur_id == Transporteur.CHAFFEUR_PATRON || transporteur.typetransporteur_id == Transporteur.PROPRIETAIRE_FLOTTE)
             {
                 //Souscription au topic de Firebase "drivers"
-                FirebaseMessaging.getInstance().subscribeToTopic("drivers");
+                FirebaseMessaging.getInstance().subscribeToTopic(transporteur.identite.email.replace("@","#"));
             }else{
                 String token = FirebaseInstanceId.getInstance().getToken();
                 Log.e("###FireBase", token);
