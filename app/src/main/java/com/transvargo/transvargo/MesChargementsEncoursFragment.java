@@ -131,11 +131,7 @@ public class MesChargementsEncoursFragment extends Fragment {
                 viewHolder.txt_dateexpiration  = (TextView) convertView.findViewById(R.id.txt_chrgmt_dateexpiration);
                 viewHolder.section_label = (TextView) convertView.findViewById(R.id.section_label);
                 viewHolder.relativ_chgmnt_template = (RelativeLayout) convertView.findViewById(R.id.relativ_chgmnt_template);
-                /*
-                viewHolder.txt_fragile  = (TextView) convertView.findViewById(R.id.txt_chrgmt_fragile);
-                viewHolder.txt_distance  = (TextView) convertView.findViewById(R.id.txt_chrgmt_distance);
-                viewHolder.txt_masse  = (TextView) convertView.findViewById(R.id.txt_chrgmt_masse);
-                */
+
                 convertView.setTag(viewHolder);
             }
 
@@ -157,17 +153,6 @@ public class MesChargementsEncoursFragment extends Fragment {
             viewHolder.txt_datechargement.setText(sdf.format(chargement.expedition.datechargement));
             viewHolder.txt_dateexpiration.setText(sdf.format(chargement.expedition.dateexpiration));
 
-            /*
-            viewHolder.txt_fragile.setText(chargement.expedition.fragile ? "Oui" : "Non");
-            viewHolder.txt_distance.setText(String.format("%s km", chargement.expedition.distance));
-
-            if(chargement.expedition.masse <= 10000)
-            {
-                viewHolder.txt_masse.setText((chargement.expedition.masse/1000) + " T");
-            }else {
-                viewHolder.txt_masse.setText(chargement.expedition.masse + " kg");
-            }
-            */
             return convertView;
         }
 

@@ -4,10 +4,10 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="0dp"
-    android:paddingRight="0dp"
+    android:paddingLeft="5dp"
+    android:paddingRight="5dp"
     android:paddingTop="@dimen/activity_vertical_margin"
-    app:layout_goneMarginBottom="15dp">
+    app:layout_goneMarginBottom="10dp">
 
     <LinearLayout
     android:orientation="vertical"
@@ -18,13 +18,12 @@
     <RelativeLayout
         android:id="@+id/relativ_chgmnt_template"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/color_white">
+        android:layout_height="wrap_content">
         <ImageView
             android:paddingLeft="10dp"
             android:id="@+id/truck"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:src="@drawable/package32"/>
         <TextView
             android:id="@+id/section_label"
@@ -32,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="@dimen/text_h1"
+            android:textSize="@dimen/text_h2"
             android:textAlignment="center"
             android:textStyle="bold"
             android:layout_centerVertical="true"
@@ -41,10 +40,12 @@
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="2dp"
+        android:layout_height="1dp"
         android:background="@color/black_overlay"
-        android:layout_marginTop="4dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginStart="15dp"
+        android:layout_marginEnd="15dp"
         />
 
     <LinearLayout
@@ -64,16 +65,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:padding="3dp"
+                android:text="lkddjk  sddsklk kjsdjdksd ksd ks"
                 android:textAlignment="center"
-                android:text="lkddjk  lklsjjk lklksdjds sddsklk kjsdjdksd ksd ks"
-                android:textSize="@dimen/text_normal"
-                android:textStyle="normal"/>
+                android:textSize="@dimen/text_normal_mini"
+                android:textStyle="normal" />
 
             <TextView
                 android:id="@+id/txt_chrgmt_datechargement"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="1dp"
                 android:text="12/08/2017"
                 android:textAlignment="center"
                 android:textStyle="bold"
@@ -84,11 +86,10 @@
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="90dp"
+            android:layout_height="65dp"
             android:layout_weight="3"
             android:layout_gravity="center"
             android:src="@drawable/delivery512"/>
-
 
         <LinearLayout
             android:layout_weight="2"
@@ -102,8 +103,9 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:textAlignment="center"
-            android:text="lkddjk  lklsjjk lklksdjds sddsklk kjsdjdksd ksd ks"
-            android:textSize="@dimen/text_normal"
+            android:padding="3dp"
+            android:text="lkddjkksdjds sddsklk kjsdjdksd ksd ks"
+            android:textSize="@dimen/text_normal_mini"
             android:textStyle="normal"/>
 
             <TextView
@@ -115,7 +117,7 @@
                 android:textStyle="bold"
                 android:text="22/08/2017"
                 android:textAlignment="center"
-                android:layout_marginTop="9dp"/>
+                android:layout_marginTop="1dp"/>
 
         </LinearLayout>
     </LinearLayout>

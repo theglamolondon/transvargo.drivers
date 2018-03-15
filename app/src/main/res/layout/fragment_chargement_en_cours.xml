@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/relativ_frgmnt_encours"
-    android:background="#c3d8e7"
+    android:background="@color/colorBackgroundEncours"
     tools:context="com.transvargo.transvargo.Chargements">
 
     <ListView

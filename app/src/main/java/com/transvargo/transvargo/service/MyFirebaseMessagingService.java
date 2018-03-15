@@ -41,7 +41,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             Intent listeIntent = null;
             if(Boot.getTransporteurConnecte().typetransporteur_id != Transporteur.CHAUFFEUR_FLOTTE)
             {
-                listeIntent = new Intent(this, Principal.class);
+                listeIntent = new Intent(this, Chargements.class);
             }else{ //Mode chauffeur activé
                 listeIntent = new Intent(this, Chargements.class);
             }
