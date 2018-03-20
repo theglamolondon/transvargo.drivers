@@ -67,6 +67,11 @@ public class Boot extends Application
     public void onCreate()
     {
         super.onCreate();
+        this.subscribeFCM();
+    }
+
+    public void subscribeFCM()
+    {
         transporteur = StoreCache.getObject(this,StoreCache.TRANSVARGO_TRANSPORTEUR,Transporteur.class);
 
         if(transporteur != null)
@@ -84,6 +89,7 @@ public class Boot extends Application
                 //Souscription au topic de Firebase
                 FirebaseMessaging.getInstance().subscribeToTopic(transporteur.identite.email.replace("@",""));
             }else{
+                //FirebaseMessaging.getInstance().subscribeToTopic(transporteur.vehicule.immatriculation);
                 String token = FirebaseInstanceId.getInstance().getToken();
                 Log.e("###FireBase", token);
                 this.sendLastFcmToken(token);

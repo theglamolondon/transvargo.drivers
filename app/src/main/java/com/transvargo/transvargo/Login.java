@@ -34,7 +34,7 @@ public class Login extends AppCompatActivity {
         @Override
         public void doSomething(Object liste) {
             Log.e("##TESTS##","execute login");
-            Intent openApp = new Intent(Login.this,Principal.class);
+            Intent openApp = new Intent(Login.this,Chargements.class);
             startActivity(openApp);
 
             if(progressDialog != null){
@@ -45,7 +45,8 @@ public class Login extends AppCompatActivity {
         @Override
         public <T> void doSomething(List<T> data) {
             Log.e("##TESTS##","execute login");
-            Intent openApp = new Intent(Login.this,Principal.class);
+
+            Intent openApp = new Intent(Login.this,Chargements.class);
             startActivity(openApp);
 
             //Démarrage du service de géolocalisation
